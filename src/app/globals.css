@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+	.grid-layout {
+		@apply grid grid-cols-4 mx-4 gap-x-4;
+		@apply sm:mx-8 sm:grid-cols-8;
+		@apply lg:mx-6 lg:grid-cols-12 lg:gap-x-6;
+		@apply xl:mx-50;
+		@apply 2xl:justify-center 2xl:grid-cols-12-72;
+	}
+}
