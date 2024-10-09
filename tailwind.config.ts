@@ -28,7 +28,7 @@ const config: Config = {
 					800: '#1A2B8C',
 					900: '#14216B',
 				},
-				background: '#F2F4FF',
+				page: '#F2F4FF', // Default color for the page backround
 			},
 		},
 	},
