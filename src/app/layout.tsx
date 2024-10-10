@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { Roboto } from 'next/font/google'
+import Navigation from './components/Navigation'
 
 export const metadata: Metadata = {
 	title: 'Edicom',
@@ -21,7 +22,8 @@ export default function RootLayout({
 	return (
 		<html lang='en'>
 			<body className={`${roboto.className} bg-page`}>
-				<main className='grid-layout'>{children}</main>
+				<Navigation isLoggedIn={true}/>
+				<main className='grid-layout relative mt-16'>{children}</main>
 			</body>
 		</html>
 	)
