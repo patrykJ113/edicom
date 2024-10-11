@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
-import './globals.css'
+import '../globals.css'
 import { Roboto } from 'next/font/google'
-import Navigation from './components/Navigation'
+import Navigation from '../components/Navigation'
+import { NextIntlClientProvider } from 'next-intl'
+import { getMessages } from 'next-intl/server'
 
 export const metadata: Metadata = {
 	title: 'Edicom',
@@ -14,16 +16,19 @@ export const roboto = Roboto({
 	weight: ['100', '300', '400', '400', '500', '700', '900'],
 })
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: Readonly<{
 	children: React.ReactNode
 }>) {
+	const messages = await getMessages()
 	return (
 		<html lang='en'>
 			<body className={`${roboto.className} bg-page`}>
-				<Navigation isLoggedIn={true}/>
-				<main className='grid-layout relative mt-16'>{children}</main>
+				<NextIntlClientProvider messages={messages}>
+					<Navigation isLoggedIn={true} />
+					<main className='grid-layout relative mt-16'>{children}</main>
+				</NextIntlClientProvider>
 			</body>
 		</html>
 	)
