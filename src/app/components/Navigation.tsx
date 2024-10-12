@@ -1,11 +1,17 @@
 import Link from 'next/link'
 import YoureAccountBtn from './buttons/YoureAccountBtn'
+import { useTranslations } from 'next-intl'
+import messagesEnum from '../enum/messages'
+import nameSpaceEnum from '../enum/name-space'
 
 type Props = {
 	isLoggedIn: boolean
 }
 
 export default function Navigation({ isLoggedIn }: Props) {
+	const { navigation } = messagesEnum
+	const t = useTranslations(nameSpaceEnum.navigation)
+
 	return (
 		<nav className='fixed inset-x-0 top-0 z-50 bg-white shadow-blue-1'>
 			<div className='grid-layout'>
@@ -20,16 +26,16 @@ export default function Navigation({ isLoggedIn }: Props) {
 						{!isLoggedIn ?
 							<ul className='flex items-center gap-4 gap-x-6'>
 								<li className='text-base font-medium text-gray-300'>
-									<Link href='/'>Register</Link>
+									<Link href='/'>{t(navigation.register)}</Link>
 								</li>
 								<li className='text-lg font-medium text-brand'>
-									<Link href='/'>Log in</Link>
+									<Link href='/'>{t(navigation.logIn)}</Link>
 								</li>
 							</ul>
 						:	<div className='flex items-center gap-4 gap-x-6'>
-								<YoureAccountBtn />{' '}
+								<YoureAccountBtn />
 								<Link href='/' className='text-lg font-medium text-brand'>
-									New Listing
+									{t(navigation.newListing)}
 								</Link>
 							</div>
 						}
