@@ -2,19 +2,17 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import DropDown from '../DropDown'
+import { useTranslations } from 'next-intl'
+import nameSpaceEnum from '@/app/enum/name-space'
+import messagesEnum from '@/app/enum/messages'
 
 export default function YoureAccountBtn() {
+	const t = useTranslations(nameSpaceEnum.youreAccountBtn)
 	const [opened, setOpened] = useState(false)
 	const btnRef = useRef<HTMLDivElement | null>(null)
+	const { youreAccountBtn } = messagesEnum
 
-	const options = [
-		'Ogłoszenia',
-		'Wiadmości',
-		'Płatności',
-		'Ustawienia',
-		'Obserwowane',
-		'Log Out',
-	]
+	const options = Object.values(youreAccountBtn.options).map(val => t(val))
 
 	const handleClickOutside = (event: Event) => {
 		const target = event.target as Node
@@ -50,7 +48,7 @@ export default function YoureAccountBtn() {
 				className='text-base text-gray-500 py-3 hover:text-gray-700 active:text-gray-900'
 				onClick={toggleDropDown}
 			>
-				You&apos;re Account
+				{t('btnLabel')}
 			</button>
 			<DropDown options={options} opened={opened} />
 		</div>
