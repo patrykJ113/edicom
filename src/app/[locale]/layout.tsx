@@ -18,12 +18,14 @@ export const roboto = Roboto({
 
 export default async function RootLayout({
 	children,
+	params: { locale },
 }: Readonly<{
 	children: React.ReactNode
+	params: { locale: string }
 }>) {
 	const messages = await getMessages()
 	return (
-		<html lang='en'>
+		<html lang={locale}>
 			<body className={`${roboto.className} bg-page`}>
 				<NextIntlClientProvider messages={messages}>
 					<Navigation isLoggedIn={true} />
