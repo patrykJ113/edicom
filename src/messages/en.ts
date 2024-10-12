@@ -1,6 +1,6 @@
-import { Translation } from '@/app/types/translation'
+import { Messages } from '@/app/types/messages'
 
-const translation: Translation = {
+const messages: Messages = {
 	navigation: {
 		register: 'Register',
 		logIn: 'Log in',
@@ -8,15 +8,15 @@ const translation: Translation = {
 	},
 	youreAccountBtn: {
 		btnLabel: "You're Account",
-		options: [
-			'Listings',
-			'Messages',
-			'Payments',
-			'Settings',
-			'Foloved',
-			'Log Out',
-		],
+		options: {
+			listings: 'Listings',
+			messages: 'Messages',
+			payments: 'Payments',
+			settings: 'Settings',
+			foloved: 'Foloved',
+			logOut: 'Log Out',
+		},
 	},
 }
 
-export default translation
+export default messages
