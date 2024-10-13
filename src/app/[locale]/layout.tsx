@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import '../globals.css'
 import { Roboto } from 'next/font/google'
-import Navigation from '../components/Navigation'
+import Navigation from '@components/navigation/Navigation'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 
@@ -28,7 +28,7 @@ export default async function RootLayout({
 		<html lang={locale}>
 			<body className={`${roboto.className} bg-page`}>
 				<NextIntlClientProvider messages={messages}>
-					<Navigation isLoggedIn={true} />
+					<Navigation />
 					<main className='grid-layout relative mt-16'>{children}</main>
 				</NextIntlClientProvider>
 			</body>

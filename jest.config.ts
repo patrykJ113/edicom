@@ -11,7 +11,8 @@ const config: Config = {
 	testEnvironment: 'jsdom',
 	setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
 	moduleNameMapper: {
-		'^@/messages/(.*)$': '<rootDir>/src/messages/$1',
+		'^@messages/(.*)$': '<rootDir>/src/messages/$1',
+		'^@components/(.*)$': '<rootDir>/src/app/components/$1',
 	},
 }
 
