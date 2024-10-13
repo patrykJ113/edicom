@@ -19,7 +19,10 @@
 		],
 		"paths": {
 			"@/*": ["./src/*"],
-			"@/messages/*": ["./src/messages/*"],
+			"@messages/*": ["./src/messages/*"],
+			"@components/*": ["./src/app/components/*"],
+			"@enum/*": ["./src/app/enum/*"],
+			"@types/*": ["./src/app/types/*"],
 		}
 	},
 	"include": [
