@@ -10,6 +10,9 @@ const config: Config = {
 	clearMocks: true,
 	testEnvironment: 'jsdom',
 	setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+	moduleNameMapper: {
+		'^@/messages/(.*)$': '<rootDir>/src/messages/$1',
+	},
 }
 
 export default createJestConfig(config)
