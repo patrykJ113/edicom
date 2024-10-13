@@ -18,7 +18,8 @@
 			}
 		],
 		"paths": {
-			"@/*": ["./src/*"]
+			"@/*": ["./src/*"],
+			"@/messages/*": ["./src/messages/*"],
 		}
 	},
 	"include": [
