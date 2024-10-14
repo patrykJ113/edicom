@@ -45,6 +45,7 @@ const config: Config = {
 			boxShadow: {
 				'blue-1': '0 4px 10px 0 rgba(48, 79, 254, 0.16)',
 				'blue-2': '0 4px 50px 0 rgba(48, 79, 254, 0.10)',
+				'gray-1': '0 -4px 9px 0 rgba(0, 0, 0, 0.08)'
 			},
 			fontSize: {
 				'4.5xl': '40px',

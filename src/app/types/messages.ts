@@ -1,9 +1,16 @@
 export type Messages = {
-	'navigation': {
+	'topNav': {
 		register: string
 		logIn: string
 		newListing: string
 	}
+	'bottomNav': {
+		search: string,
+		favorites: string,
+		add: string,
+		messages: string,
+		account: string,
+	},
 	'youreAccountBtn': {
 		btnLabel: string
 		options: {
@@ -18,10 +25,17 @@ export type Messages = {
 }
 
 export type MessagesEnum = {
-	'navigation': {
+	'topNav': {
 		register: 'register'
 		logIn: 'logIn'
 		newListing: 'newListing'
+	}
+	'bottomNav': {
+		search: 'search'
+		favorites: 'favorites'
+		add: 'add'
+		messages: 'messages'
+		account: 'account'
 	}
 	'youreAccountBtn': {
 		btnLabel: 'btnLabel'
@@ -37,7 +51,8 @@ export type MessagesEnum = {
 }
 
 export type NameSpaceEnum = {
-	navigation: 'navigation'
+	topNav: 'topNav'
 	youreAccountBtn: 'youreAccountBtn'
+	bottomNav: 'bottomNav'
 }
 

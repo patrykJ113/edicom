@@ -1,10 +1,17 @@
 import { MessagesEnum } from '../types/messages'
 
 const messagesEnum: MessagesEnum = {
-	navigation: {
+	topNav: {
 		register: 'register',
 		logIn: 'logIn',
 		newListing: 'newListing',
+	},
+	bottomNav: {
+		search: 'search',
+		favorites: 'favorites',
+		add: 'add',
+		messages: 'messages',
+		account: 'account'
 	},
 	youreAccountBtn: {
 		btnLabel: 'btnLabel',

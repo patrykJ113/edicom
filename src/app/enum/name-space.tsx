@@ -1,7 +1,8 @@
 import { NameSpaceEnum } from '../types/messages'
 
 const nameSpaceEnum: NameSpaceEnum = {
-	navigation: 'navigation',
+	topNav: 'topNav',
+	bottomNav: 'bottomNav',
 	youreAccountBtn: 'youreAccountBtn',
 }
 

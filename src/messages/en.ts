@@ -1,10 +1,17 @@
 import { Messages } from '@/app/types/messages'
 
 const messages: Messages = {
-	navigation: {
+	topNav: {
 		register: 'Register',
 		logIn: 'Log in',
 		newListing: 'New Listing',
+	},
+	bottomNav: {
+		search: 'Search',
+		favorites: 'Favorites',
+		add: 'Add',
+		messages: 'Messages',
+		account: 'Account'
 	},
 	youreAccountBtn: {
 		btnLabel: "You're Account",
