@@ -1,13 +1,10 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import TopNav from '@/app/components/navigation/TopNav'
-import { NextIntlClientProvider } from 'next-intl'
+import provideTranslations from '@/utils/provideTranslations'
 
 test('elements in TopNav are diplyed corectly', async () => {
-	const en = await import('@messages/en')
 	const { rerender } = render(
-		<NextIntlClientProvider messages={en.default} locale={'en'}>
-			<TopNav isLoggedIn={true} />
-		</NextIntlClientProvider>,
+		await provideTranslations(<TopNav isLoggedIn={true} />),
 	)
 
 	screen.getByRole('button')
@@ -18,11 +15,7 @@ test('elements in TopNav are diplyed corectly', async () => {
 	let logo = screen.getByRole('heading')
 	expect(logo).toHaveTextContent(/edicom/i)
 
-	rerender(
-		<NextIntlClientProvider messages={en.default} locale={'en'}>
-			<TopNav isLoggedIn={false} />
-		</NextIntlClientProvider>,
-	)
+	rerender(await provideTranslations(<TopNav isLoggedIn={false} />))
 
 	logo = screen.getByRole('heading')
 	expect(logo).toHaveTextContent(/edicom/i)
@@ -37,12 +30,7 @@ test('elements in TopNav are diplyed corectly', async () => {
 })
 
 test('dropdown is toggled correctly in TopNav', async () => {
-	const en = await import('@messages/en')
-	render(
-		<NextIntlClientProvider messages={en.default} locale={'en'}>
-			<TopNav isLoggedIn={true} />
-		</NextIntlClientProvider>,
-	)
+	render(await provideTranslations(<TopNav isLoggedIn={true} />))
 
 	const btn = screen.getByRole('button')
 	const dropDown = screen.getByRole('article')
@@ -60,13 +48,15 @@ test('TopNav is translated corectly', async () => {
 	const { rerender } = render(<span>Dumy element to be replaced </span>)
 
 	for (const language of languges) {
-		const lang = await import(`@messages/${language}`)
-		const { topNav } = lang.default
+		const message = await import(`@messages/${language}`)
+		const { topNav } = message.default
 
 		rerender(
-			<NextIntlClientProvider messages={lang.default} locale={language}>
-				<TopNav isLoggedIn={false} />
-			</NextIntlClientProvider>,
+			await provideTranslations(
+				<TopNav isLoggedIn={false} />,
+				message.default,
+				language,
+			),
 		)
 
 		const register = screen.getByRole('link', {
@@ -81,13 +71,15 @@ test('TopNav is translated corectly', async () => {
 	}
 
 	for (const language of languges) {
-		const lang = await import(`@messages/${language}`)
-		const { topNav } = lang.default
+		const message = await import(`@messages/${language}`)
+		const { topNav } = message.default
 
 		rerender(
-			<NextIntlClientProvider messages={lang.default} locale={language}>
-				<TopNav isLoggedIn={true} />
-			</NextIntlClientProvider>,
+			await provideTranslations(
+				<TopNav isLoggedIn={true} />,
+				message.default,
+				language,
+			),
 		)
 
 		const newListing = screen.getByRole('link', {

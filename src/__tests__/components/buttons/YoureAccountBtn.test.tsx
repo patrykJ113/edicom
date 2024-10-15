@@ -1,15 +1,10 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import YoureAccountBtn from '@components/buttons/YoureAccountBtn'
-import { NextIntlClientProvider } from 'next-intl'
+import provideTranslations from '@/utils/provideTranslations'
 
 test('button toggles dropdown on click', async () => {
-	const en = await import('@messages/en')
-	render(
-		<NextIntlClientProvider messages={en.default} locale={'en'}>
-			<YoureAccountBtn />
-		</NextIntlClientProvider>,
-	)
-
+	render(await provideTranslations(<YoureAccountBtn />))
+	screen.debug()
 	const btn = screen.getByRole('button', {
 		name: /you're account/i,
 	})
@@ -24,25 +19,55 @@ test('button toggles dropdown on click', async () => {
 	expect(dropDown).toHaveClass('opacity-0')
 })
 
+test('Dropdown has the corect amount of items', async () => {
+	render(await provideTranslations(<YoureAccountBtn />))
+
+	const listItems = screen.getAllByRole('listitem')
+
+	expect(listItems).toHaveLength(6)
+})
+
 test('renders correct language translations', async () => {
 	const languages = ['en', 'pl']
 
+	const { rerender } = render(<span>Dumy element to be replaced</span>)
+
 	for (const language of languages) {
-		const lang = await import(`@messages/${language}`)
+		const message = await import(`@messages/${language}`)
 		const {
 			default: { youreAccountBtn },
-		} = lang
-		render(
-			<NextIntlClientProvider messages={lang.default} locale={language}>
-				<YoureAccountBtn />
-			</NextIntlClientProvider>,
+		} = message
+
+		rerender(
+			await provideTranslations(<YoureAccountBtn />, message.default, language),
 		)
 
 		screen.getByRole('button', {
 			name: new RegExp(youreAccountBtn.btnLabel, 'i'),
 		})
 
-		const listItmes = screen.getAllByRole('listitem')
-		expect(listItmes).toHaveLength(listItmes.length)
+		screen.getByText(new RegExp(youreAccountBtn.options.listings, 'i'), {
+			selector: 'li',
+		})
+
+		screen.getByText(new RegExp(youreAccountBtn.options.messages, 'i'), {
+			selector: 'li',
+		})
+
+		screen.getByText(new RegExp(youreAccountBtn.options.payments, 'i'), {
+			selector: 'li',
+		})
+
+		screen.getByText(new RegExp(youreAccountBtn.options.settings, 'i'), {
+			selector: 'li',
+		})
+
+		screen.getByText(new RegExp(youreAccountBtn.options.foloved, 'i'), {
+			selector: 'li',
+		})
+
+		screen.getByText(new RegExp(youreAccountBtn.options.logOut, 'i'), {
+			selector: 'li',
+		})
 	}
 })
