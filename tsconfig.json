@@ -24,6 +24,7 @@
 			"@enum/*": ["./src/app/enum/*"],
 			"@types/*": ["./src/app/types/*"],
 			"@svg/*": ["./src/assets/svg/*"],
+			"@utils/*": ["./src/utils/*"],
 		}
 	},
 	"include": [
