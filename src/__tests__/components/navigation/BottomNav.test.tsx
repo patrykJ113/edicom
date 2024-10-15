@@ -1,6 +1,7 @@
 import BottomNav from '@components/navigation/BottomNav'
 import { render, screen, fireEvent } from '@testing-library/react'
 import provideTranslations from '@/utils/test/provideTranslations'
+import testTranslation from '@/utils/test/testTranslation'
 
 jest.mock('@svg/home.svg', () => 'svg')
 
@@ -40,22 +41,11 @@ test('BottomNav click worck corectly', async () => {
 })
 
 test('renders correct language translations', async () => {
-	const lanuages = ['en', 'pl']
-
-	const { rerender } = render(<span>Dumy code to be deleted</span>)
-
-	for (const lanuage of lanuages) {
-		const message = await import(`@messages/${lanuage}`)
-
-		const {
-			default: { bottomNav },
-		} = message
-
-		rerender(await provideTranslations(<BottomNav />, message.default, lanuage))
+	await testTranslation(<BottomNav />, ({ bottomNav }) => {
 		screen.getByText(bottomNav.search, { selector: 'span' })
 		screen.getByText(bottomNav.favorites, { selector: 'span' })
 		screen.getByText(bottomNav.add, { selector: 'span' })
 		screen.getByText(bottomNav.messages, { selector: 'span' })
 		screen.getByText(bottomNav.account, { selector: 'span' })
-	}
+	})
 })

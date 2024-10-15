@@ -1,6 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import TopNav from '@/app/components/navigation/TopNav'
 import provideTranslations from '@/utils/test/provideTranslations'
+import testTranslation from '@/utils/test/testTranslation'
 
 test('elements in TopNav are diplyed corectly', async () => {
 	const { rerender } = render(
@@ -43,22 +44,7 @@ test('dropdown is toggled correctly in TopNav', async () => {
 })
 
 test('TopNav is translated corectly', async () => {
-	const languges = ['en', 'pl']
-
-	const { rerender } = render(<span>Dumy element to be replaced </span>)
-
-	for (const language of languges) {
-		const message = await import(`@messages/${language}`)
-		const { topNav } = message.default
-
-		rerender(
-			await provideTranslations(
-				<TopNav isLoggedIn={false} />,
-				message.default,
-				language,
-			),
-		)
-
+	await testTranslation(<TopNav isLoggedIn={false} />, ({ topNav }) => {
 		const register = screen.getByRole('link', {
 			name: new RegExp(topNav.register, 'i'),
 		})
@@ -68,23 +54,12 @@ test('TopNav is translated corectly', async () => {
 			name: new RegExp(topNav.logIn),
 		})
 		expect(logIn).toHaveTextContent(topNav.logIn)
-	}
+	})
 
-	for (const language of languges) {
-		const message = await import(`@messages/${language}`)
-		const { topNav } = message.default
-
-		rerender(
-			await provideTranslations(
-				<TopNav isLoggedIn={true} />,
-				message.default,
-				language,
-			),
-		)
-
+	await testTranslation(<TopNav isLoggedIn={true} />, ({ topNav }) => {
 		const newListing = screen.getByRole('link', {
 			name: new RegExp(topNav.newListing, 'i'),
 		})
 		expect(newListing).toHaveTextContent(topNav.newListing)
-	}
+	})
 })

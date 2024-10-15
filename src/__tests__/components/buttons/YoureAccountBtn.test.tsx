@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import YoureAccountBtn from '@components/buttons/YoureAccountBtn'
+import testTranslation from '@/utils/test/testTranslation'
 import provideTranslations from '@/utils/test/provideTranslations'
 
 test('button toggles dropdown on click', async () => {
@@ -28,20 +29,7 @@ test('Dropdown has the corect amount of items', async () => {
 })
 
 test('renders correct language translations', async () => {
-	const languages = ['en', 'pl']
-
-	const { rerender } = render(<span>Dumy element to be replaced</span>)
-
-	for (const language of languages) {
-		const message = await import(`@messages/${language}`)
-		const {
-			default: { youreAccountBtn },
-		} = message
-
-		rerender(
-			await provideTranslations(<YoureAccountBtn />, message.default, language),
-		)
-
+	await testTranslation(<YoureAccountBtn />, ({ youreAccountBtn }) => {
 		screen.getByRole('button', {
 			name: new RegExp(youreAccountBtn.btnLabel, 'i'),
 		})
@@ -69,5 +57,5 @@ test('renders correct language translations', async () => {
 		screen.getByText(new RegExp(youreAccountBtn.options.logOut, 'i'), {
 			selector: 'li',
 		})
-	}
+	})
 })
