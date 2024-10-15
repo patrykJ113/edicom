@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import TopNav from '@/app/components/navigation/TopNav'
-import provideTranslations from '@/utils/provideTranslations'
+import provideTranslations from '@/utils/test/provideTranslations'
 
 test('elements in TopNav are diplyed corectly', async () => {
 	const { rerender } = render(

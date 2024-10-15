@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import YoureAccountBtn from '@components/buttons/YoureAccountBtn'
-import provideTranslations from '@/utils/provideTranslations'
+import provideTranslations from '@/utils/test/provideTranslations'
 
 test('button toggles dropdown on click', async () => {
 	render(await provideTranslations(<YoureAccountBtn />))
