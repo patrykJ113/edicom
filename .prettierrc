@@ -1,11 +1,15 @@
 {
-  "experimentalTernaries": true,
-  "semi": false,
-  "useTabs": true,
-  "singleQuote": true,
-  "jsxSingleQuote": true,
-  "trailingComma": "all",
-  "arrowParens": "avoid",
-  "proseWrap": "always",
-  "plugins": ["prettier-plugin-tailwindcss"]
+	"experimentalTernaries": true,
+	"semi": false,
+	"useTabs": true,
+	"singleQuote": true,
+	"jsxSingleQuote": true,
+	"printWidth": 80,
+	"trailingComma": "all",
+	"arrowParens": "avoid",
+	"proseWrap": "always",
+	"plugins": [
+		"prettier-plugin-tailwindcss",
+		"prettier-plugin-classnames"
+	]
 }
