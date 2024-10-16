@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import '../globals.css'
+import '../../globals.css'
 import { Roboto } from 'next/font/google'
 import Navigation from '@components/navigation/Navigation'
 import { NextIntlClientProvider } from 'next-intl'

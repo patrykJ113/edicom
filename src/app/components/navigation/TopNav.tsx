@@ -24,10 +24,10 @@ export default function TopNav({ isLoggedIn }: Props) {
 					{!isLoggedIn ?
 						<ul className='flex items-center gap-4 gap-x-6'>
 							<li className='text-base font-medium text-gray-300'>
-								<Link href='/'>{t(topNav.register)}</Link>
+								<Link href='/auth'>{t(topNav.register)}</Link>
 							</li>
 							<li className='text-lg font-medium text-brand'>
-								<Link href='/'>{t(topNav.logIn)}</Link>
+								<Link href='/auth'>{t(topNav.logIn)}</Link>
 							</li>
 						</ul>
 					:	<div className='flex items-center gap-4 gap-x-6'>
