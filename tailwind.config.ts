@@ -50,6 +50,9 @@ const config: Config = {
 			fontSize: {
 				'4.5xl': '40px',
 			},
+			lineHeight: {
+				'5.5': '22px'
+			}
 		},
 	},
 	plugins: [],
