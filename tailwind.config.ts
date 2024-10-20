@@ -13,6 +13,7 @@ const config: Config = {
 			},
 			gridTemplateColumns: {
 				'12-72': 'repeat(12, 72px)',
+				'1em-auto': '1em auto'
 			},
 			colors: {
 				brand: {
