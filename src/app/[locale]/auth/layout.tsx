@@ -27,7 +27,7 @@ export default async function RootLayout({
 		<html lang={locale}>
 			<body className={`${roboto.className} bg-brand-100`}>
 				<NextIntlClientProvider messages={messages}>
-					{children}
+					<main className='grid-layout h-screen items-center'>{children}</main>
 				</NextIntlClientProvider>
 			</body>
 		</html>

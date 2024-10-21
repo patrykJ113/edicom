@@ -1,5 +1,5 @@
 type Props = {
-	children: JSX.Element | string
+	children: string
 }
 
 export default function Checkbox({ children }: Props) {
@@ -13,7 +13,7 @@ export default function Checkbox({ children }: Props) {
 					checked:bg-[url("../assets/svg/check.svg")] checked:bg-center
 					checked:bg-no-repeat checked:bg-contain'
 			/>
-			{children}
+			<span className="font-semibold text-sm leading-5">{children}</span>
 		</label>
 	)
 }

@@ -69,12 +69,12 @@ export default function Input({
 			/>
 			<div className={`px-3 flex ${isHintOnly()}`}>
 				{hint && (
-					<span className='text-base font-normal leading-5 flex-1 text-gray-700'>
+					<span className='text-sm font-normal leading-5 flex-1 text-gray-700'>
 						{hint}
 					</span>
 				)}
 				{characterCount && (
-					<span className='pl-3 text-base font-normal leading-5 text-gray-700'>
+					<span className='pl-3 text-sm font-normal leading-5 text-gray-700'>
 						{inputValue.length}/{maxLength}
 					</span>
 				)}

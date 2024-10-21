@@ -7,7 +7,7 @@ export default function Navigation() {
 			className='fixed inset-x-0 bottom-0 sm:top-0 z-50 bg-white shadow-gray-1 sm:shadow-blue-1
 				h-fit'
 		>
-			<TopNav isLoggedIn={true} />
+			<TopNav isLoggedIn={false} />
 			<BottomNav />
 		</nav>
 	)

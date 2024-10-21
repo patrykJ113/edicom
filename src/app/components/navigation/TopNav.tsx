@@ -24,7 +24,7 @@ export default function TopNav({ isLoggedIn }: Props) {
 					{!isLoggedIn ?
 						<ul className='flex items-center gap-4 gap-x-6'>
 							<li className='text-base font-medium text-gray-300'>
-								<Link href='/auth'>{t(topNav.register)}</Link>
+								<Link href='/auth?type=signup'>{t(topNav.register)}</Link>
 							</li>
 							<li className='text-lg font-medium text-brand'>
 								<Link href='/auth'>{t(topNav.logIn)}</Link>
