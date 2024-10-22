@@ -51,6 +51,8 @@ export default function AuthForm() {
 		axios
 			.post(`${apiUrl}/auth/register`, data)
 			// eslint-disable-next-line no-console
+			.then(res => console.log(res))
+			// eslint-disable-next-line no-console
 			.catch(err => console.log(err))
 	}
 
