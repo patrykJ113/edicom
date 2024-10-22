@@ -7,6 +7,8 @@ import OAuthButton from '@components/buttons/OAuthButton'
 import { Link } from '@/i18n/routing'
 
 export default function AuthForm() {
+	const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+
 	const searchParams = useSearchParams()
 
 	const isSignUp = () => {
@@ -38,7 +40,7 @@ export default function AuthForm() {
 		const data = Object.fromEntries(formData.entries())
 		console.log(JSON.stringify(data))
 
-		fetch('http://localhost:3000/auth/register', {
+		fetch(`${apiUrl}/auth/register`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
