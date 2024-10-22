@@ -9,6 +9,7 @@ type Props = {
 	hint?: string
 	characterCount?: boolean
 	filled?: boolean
+	name: string
 	type?:
 		| 'button'
 		| 'date'
@@ -30,6 +31,7 @@ export default function Input({
 	characterCount,
 	hint,
 	filled,
+	name,
 	type = 'text'
 }: Props) {
 	const maxLength = 100
@@ -63,6 +65,7 @@ export default function Input({
 			</h2>
 			<input
 				type={type}
+				name={name}
 				className={`px-3 py-2 text-gray-700 outline-none border-gray-500 text-base leading-6
 					${getInputStyle()}`}
 				onChange={handleChange}
