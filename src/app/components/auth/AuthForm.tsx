@@ -36,18 +36,6 @@ export default function AuthForm() {
 			.then(res => console.log(res))
 			// eslint-disable-next-line no-console
 			.catch(err => console.log(err))
-		// fetch(`${apiUrl}/auth/register`, {
-		// 	method: 'POST',
-		// 	headers: {
-		// 		'Content-Type': 'application/json',
-		// 	},
-		// 	body: JSON.stringify(data),
-		// })
-		// 	.then(res => res.json())
-		// 	// eslint-disable-next-line no-console
-		// 	.then(res => console.log(res))
-		// 	// eslint-disable-next-line no-console
-		// 	.catch(err => console.log(err))
 	}
 
 	const logInUser = () => {}
