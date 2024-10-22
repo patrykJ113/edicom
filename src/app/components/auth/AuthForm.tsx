@@ -32,8 +32,27 @@ export default function AuthForm() {
 		return isSignUp() ? 'Alredy have an account ? ' : "Don't have an account ? "
 	}
 
+	const handlSumbit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
+		const formData = new FormData(e.currentTarget)
+		const data = Object.fromEntries(formData.entries())
+		console.log(JSON.stringify(data))
+
+		fetch('http://localhost:3000/auth/register', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(data),
+		})
+			.then(res => res.json())
+			.then(res => console.log(res))
+			.catch(err => console.log(err))
+	}
+
 	return (
 		<form
+			onSubmit={handlSumbit}
 			className='bg-white p-5 flex flex-col gap-7 rounded col-span-full sm:col-start-2
 				sm:col-end-8 lg:col-start-5 lg:col-end-9 h-min'
 		>
@@ -47,11 +66,17 @@ export default function AuthForm() {
 			</section>
 
 			<section className='flex flex-col gap-5'>
-				<Input hint='email is required' type='email' label='E-mail' />
+				<Input
+					hint='email is required'
+					type='email'
+					label='E-mail'
+					name='email'
+				/>
 				<Input
 					hint='Password must be 8-16 characters, include an uppercase letter, lowercase letter, number, and special character (e.g., ! @ # $)'
 					type='password'
 					label='Password'
+					name='password'
 				/>
 				<div className={`flex justify-between ${isSignUp() && 'hidden'}`}>
 					<Checkbox>Remember Me</Checkbox>
