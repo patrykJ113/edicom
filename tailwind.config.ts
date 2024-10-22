@@ -13,7 +13,7 @@ const config: Config = {
 			},
 			gridTemplateColumns: {
 				'12-72': 'repeat(12, 72px)',
-				'1em-auto': '1em auto'
+				'1em-auto': '1em auto',
 			},
 			colors: {
 				brand: {
@@ -41,19 +41,35 @@ const config: Config = {
 					800: '#424242',
 					900: '#212121',
 				},
+				red: {
+					50: '#FFEBEE',
+					100: '#FFCDD2',
+					200: '#EF9A9A',
+					300: '#E57373',
+					400: '#EF5350',
+					500: '#F44336',
+					600: '#E53935',
+					700: '#D32F2F',
+					800: '#C62828',
+					900: '#B71C1C',
+					A100: '#FF8A80',
+					A200: '#FF5252',
+					A400: '#FF1744',
+					A700: '#D50000',
+				},
 				page: '#F2F4FF', // Default color for the page backround
 			},
 			boxShadow: {
 				'blue-1': '0 4px 10px 0 rgba(48, 79, 254, 0.16)',
 				'blue-2': '0 4px 50px 0 rgba(48, 79, 254, 0.10)',
-				'gray-1': '0 -4px 9px 0 rgba(0, 0, 0, 0.08)'
+				'gray-1': '0 -4px 9px 0 rgba(0, 0, 0, 0.08)',
 			},
 			fontSize: {
 				'4.5xl': '40px',
 			},
 			lineHeight: {
-				'5.5': '22px'
-			}
+				'5.5': '22px',
+			},
 		},
 	},
 	plugins: [],

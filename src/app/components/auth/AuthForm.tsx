@@ -4,10 +4,27 @@ import Input from '@components/inputs/Input'
 import Button from '@components/buttons/Button'
 import Checkbox from '@components/inputs/Checkbox'
 import OAuthButton from '@components/buttons/OAuthButton'
+import { isValidPassword, isValidEmail } from '@utils/auth/validate'
 import { Link } from '@/i18n/routing'
 import axios from 'axios'
+import { useState } from 'react'
 
 export default function AuthForm() {
+	const [passwordError, setPasswordError] = useState(false)
+	const [emailError, setEmailError] = useState(false)
+	const [firstSubmit, setFirstSubmit] = useState(true)
+
+	const validateEmail = (email: string) => {
+		if (!firstSubmit) {
+			setEmailError(!isValidEmail(email))
+		}
+	}
+	const validatePassword = (password: string) => {
+		if (!firstSubmit) {
+			setPasswordError(!isValidPassword(password))
+		}
+	}
+
 	const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
 	const searchParams = useSearchParams()
@@ -31,7 +48,8 @@ export default function AuthForm() {
 	}
 
 	const registerUser = (data: FormData) => {
-		axios.post(`${apiUrl}/auth/register`, data)
+		axios
+			.post(`${apiUrl}/auth/register`, data)
 			// eslint-disable-next-line no-console
 			.catch(err => console.log(err))
 	}
@@ -40,8 +58,19 @@ export default function AuthForm() {
 
 	const handlSumbit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
+
 		const formData = new FormData(e.currentTarget)
 		const data = Object.fromEntries(formData.entries())
+
+		if (firstSubmit) {
+			setEmailError(!isValidEmail(data.email as string))
+			setPasswordError(!isValidPassword(data.password as string))
+			setFirstSubmit(false)
+		}
+
+		if (emailError || passwordError) {
+			return
+		}
 
 		if (isSignUp) {
 			registerUser(data)
@@ -72,12 +101,18 @@ export default function AuthForm() {
 					type='email'
 					label='E-mail'
 					name='email'
+					error={emailError}
+					validateCallBack={validateEmail}
 				/>
 				<Input
-					hint='Password must be 8-16 characters, include an uppercase letter, lowercase letter, number, and special character (e.g., ! @ # $)'
+					hint={`
+						Password must be 8-16 characters, include an uppercase letter, 
+						lowercase letter, number, and special character (e.g., ! @ # $)`}
 					type='password'
 					label='Password'
 					name='password'
+					error={passwordError}
+					validateCallBack={validatePassword}
 				/>
 				<div className={`flex justify-between ${isSignUp && 'hidden'}`}>
 					<Checkbox>Remember Me</Checkbox>
