@@ -7,7 +7,7 @@ import OAuthButton from '@components/buttons/OAuthButton'
 import { Link } from '@/i18n/routing'
 
 export default function AuthForm() {
-	const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+	const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
 	const searchParams = useSearchParams()
 
@@ -38,7 +38,6 @@ export default function AuthForm() {
 		e.preventDefault()
 		const formData = new FormData(e.currentTarget)
 		const data = Object.fromEntries(formData.entries())
-		console.log(JSON.stringify(data))
 
 		fetch(`${apiUrl}/auth/register`, {
 			method: 'POST',
@@ -48,7 +47,9 @@ export default function AuthForm() {
 			body: JSON.stringify(data),
 		})
 			.then(res => res.json())
+			// eslint-disable-next-line no-console
 			.then(res => console.log(res))
+			// eslint-disable-next-line no-console
 			.catch(err => console.log(err))
 	}
 
