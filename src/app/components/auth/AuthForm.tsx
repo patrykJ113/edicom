@@ -4,9 +4,6 @@ import Input from '@components/inputs/Input'
 import Button from '@components/buttons/Button'
 import Checkbox from '@components/inputs/Checkbox'
 import OAuthButton from '@components/buttons/OAuthButton'
-import Google from '@svg/logos/google.svg'
-import Fb from '@svg/logos/fb.svg'
-import Apple from '@svg/logos/apple.svg'
 import { Link } from '@/i18n/routing'
 
 export default function AuthForm() {
@@ -77,15 +74,9 @@ export default function AuthForm() {
 					Or Sign {isSignUp() ? 'Up' : 'In'} with
 				</p>
 				<div className='flex gap-x-3 justify-center'>
-					<OAuthButton>
-						<Apple />
-					</OAuthButton>
-					<OAuthButton>
-						<Google />
-					</OAuthButton>
-					<OAuthButton>
-						<Fb />
-					</OAuthButton>
+					<OAuthButton apple />
+					<OAuthButton google />
+					<OAuthButton fb />
 				</div>
 				<p className='text-sm leading-5 text-center'>
 					{getActionPrompt()}
