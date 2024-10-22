@@ -5,6 +5,7 @@ import Button from '@components/buttons/Button'
 import Checkbox from '@components/inputs/Checkbox'
 import OAuthButton from '@components/buttons/OAuthButton'
 import { Link } from '@/i18n/routing'
+import axios from 'axios'
 
 export default function AuthForm() {
 	const apiUrl = process.env.NEXT_PUBLIC_API_URL
@@ -30,18 +31,23 @@ export default function AuthForm() {
 	}
 
 	const registerUser = (data: FormData) => {
-		fetch(`${apiUrl}/auth/register`, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-			},
-			body: JSON.stringify(data),
-		})
-			.then(res => res.json())
+		axios.post(`${apiUrl}/auth/register`, data)
 			// eslint-disable-next-line no-console
 			.then(res => console.log(res))
 			// eslint-disable-next-line no-console
 			.catch(err => console.log(err))
+		// fetch(`${apiUrl}/auth/register`, {
+		// 	method: 'POST',
+		// 	headers: {
+		// 		'Content-Type': 'application/json',
+		// 	},
+		// 	body: JSON.stringify(data),
+		// })
+		// 	.then(res => res.json())
+		// 	// eslint-disable-next-line no-console
+		// 	.then(res => console.log(res))
+		// 	// eslint-disable-next-line no-console
+		// 	.catch(err => console.log(err))
 	}
 
 	const logInUser = () => {}
