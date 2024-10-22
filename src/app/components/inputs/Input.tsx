@@ -57,6 +57,10 @@ export default function Input({
 		return `${height} ${borderAndBg}`
 	}
 
+	const isPassword = () => {
+		return type === 'password' ? 'true' : 'false'
+	}
+
 	return (
 		<article className='flex flex-col gap-y-2'>
 			<h2 className={`font-normal ${getLableStyle()}`}>
@@ -66,6 +70,7 @@ export default function Input({
 			<input
 				type={type}
 				name={name}
+				autoComplete={isPassword()}
 				className={`px-3 py-2 text-gray-700 outline-none border-gray-500 text-base leading-6
 					${getInputStyle()}`}
 				onChange={handleChange}
