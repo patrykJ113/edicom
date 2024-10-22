@@ -11,34 +11,25 @@ export default function AuthForm() {
 
 	const searchParams = useSearchParams()
 
-	const isSignUp = () => {
-		const type = searchParams.get('type')
-		return type === 'signup'
+	const isSignUp = searchParams.get('type') === 'signup'
+
+	const getLabel = isSignUp ? 'Create Account' : 'Sign In'
+
+	const getLabelHint =
+		isSignUp ?
+			'Fill your information below or register with your social account'
+		:	"Hi! Welcome back, you've been missed"
+
+	const getBtnLabel = isSignUp ? 'Sign Up' : 'Sign In'
+
+	const getActionPrompt =
+		isSignUp ? 'Already have an account ? ' : "Don't have an account ? "
+
+	type FormData = {
+		[k: string]: FormDataEntryValue
 	}
 
-	const getLabel = () => {
-		return isSignUp() ? 'Create Account' : 'Sign In'
-	}
-
-	const getLabelHint = () => {
-		return isSignUp() ?
-				'Fill your information below or register with your social account'
-			:	"Hi! Welcome back, you've been missed"
-	}
-
-	const getBtnLabe = () => {
-		return isSignUp() ? 'Sign Up' : 'Sign In'
-	}
-
-	const getActionPrompt = () => {
-		return isSignUp() ? 'Alredy have an account ? ' : "Don't have an account ? "
-	}
-
-	const handlSumbit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault()
-		const formData = new FormData(e.currentTarget)
-		const data = Object.fromEntries(formData.entries())
-
+	const registerUser = (data: FormData) => {
 		fetch(`${apiUrl}/auth/register`, {
 			method: 'POST',
 			headers: {
@@ -53,6 +44,21 @@ export default function AuthForm() {
 			.catch(err => console.log(err))
 	}
 
+	const logInUser = () => {}
+
+	const handlSumbit = (e: React.FormEvent<HTMLFormElement>) => {
+		e.preventDefault()
+		const formData = new FormData(e.currentTarget)
+		const data = Object.fromEntries(formData.entries())
+
+		if (isSignUp) {
+			registerUser(data)
+			return
+		}
+
+		logInUser()
+	}
+
 	return (
 		<form
 			onSubmit={handlSumbit}
@@ -61,10 +67,10 @@ export default function AuthForm() {
 		>
 			<section className='flex flex-col gap-y-3'>
 				<h2 className='text-[26px] font-bold leading-8 text-center'>
-					{getLabel()}
+					{getLabel}
 				</h2>
 				<p className='text-base leading-7 text-gray-600 text-center'>
-					{getLabelHint()}
+					{getLabelHint}
 				</p>
 			</section>
 
@@ -81,7 +87,7 @@ export default function AuthForm() {
 					label='Password'
 					name='password'
 				/>
-				<div className={`flex justify-between ${isSignUp() && 'hidden'}`}>
+				<div className={`flex justify-between ${isSignUp && 'hidden'}`}>
 					<Checkbox>Remember Me</Checkbox>
 					<span
 						className='text-brand underline-offset-4 underline hover:cursor-pointer text-sm leading-5
@@ -90,7 +96,7 @@ export default function AuthForm() {
 						Forgot Password?
 					</span>
 				</div>
-				<Button>{getBtnLabe()}</Button>
+				<Button>{getBtnLabel}</Button>
 			</section>
 
 			<section className='flex flex-col gap-y-5'>
@@ -99,7 +105,7 @@ export default function AuthForm() {
 						text-center after:block after:h-1/2 after:border-t after:border-gray-500
 						after:w-9 before:block before:border-t before:border-gray-500 before:w-9'
 				>
-					Or Sign {isSignUp() ? 'Up' : 'In'} with
+					Or Sign {isSignUp ? 'Up' : 'In'} with
 				</p>
 				<div className='flex gap-x-3 justify-center'>
 					<OAuthButton apple />
@@ -107,12 +113,12 @@ export default function AuthForm() {
 					<OAuthButton fb />
 				</div>
 				<p className='text-sm leading-5 text-center'>
-					{getActionPrompt()}
+					{getActionPrompt}
 					<Link
-						href={`/auth${isSignUp() ? '' : '?type=signup'}`}
+						href={`/auth${isSignUp ? '' : '?type=signup'}`}
 						className='text-brand font-semibold underline-offset-4 underline'
 					>
-						{isSignUp() ? 'Sing In' : 'Sing Up'}
+						{isSignUp ? 'Sing In' : 'Sing Up'}
 					</Link>
 				</p>
 			</section>
