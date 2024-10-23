@@ -11,7 +11,7 @@ const messages: Messages = {
 		favorites: 'Favorites',
 		add: 'Add',
 		messages: 'Messages',
-		account: 'Account'
+		account: 'Account',
 	},
 	youreAccountBtn: {
 		btnLabel: "You're Account",
@@ -23,6 +23,33 @@ const messages: Messages = {
 			foloved: 'Foloved',
 			logOut: 'Log Out',
 		},
+	},
+	loginForm: {
+		signIn: 'Sing In',
+		signUp: 'Sing Up',
+		title: 'Sign In',
+		titleHint: `Hi! Welcome back, you've been missed`,
+		rememberMe: 'Remember Me',
+		forgotPassword: 'Forgot Password?',
+		orSignInWith: 'Or Sign In with',
+		dontHaveAnAccount: `Don't have an account? `,
+		emailHint: 'email is required',
+		passwordHint: `Password must be 8-16 characters, include an uppercase letter, 
+						lowercase letter, number, and special character (e.g., ! @ # $)`,
+		password: 'Password',
+	},
+	registerForm: {
+		signIn: 'Sing In',
+		signUp: 'Sign Up',
+		title: 'Create Account',
+		titleHint:
+			'Fill your information below or register with your social account',
+		orSignUpWith: 'Or Sign Up with',
+		alreadyHaveAnAccount: 'Already have an account? ',
+		emailHint: 'email is required',
+		passwordHint: `Password must be 8-16 characters, include an uppercase letter, 
+						lowercase letter, number, and special character (e.g., ! @ # $)`,
+		password: 'Password',
 	},
 }
 

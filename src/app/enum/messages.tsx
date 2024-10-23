@@ -11,7 +11,7 @@ const messagesEnum: MessagesEnum = {
 		favorites: 'favorites',
 		add: 'add',
 		messages: 'messages',
-		account: 'account'
+		account: 'account',
 	},
 	youreAccountBtn: {
 		btnLabel: 'btnLabel',
@@ -23,6 +23,30 @@ const messagesEnum: MessagesEnum = {
 			foloved: 'options.foloved',
 			logOut: 'options.logOut',
 		},
+	},
+	loginForm: {
+		signIn: 'signIn',
+		signUp: 'signUp',
+		title: 'title',
+		titleHint: 'titleHint',
+		rememberMe: 'rememberMe',
+		forgotPassword: 'forgotPassword',
+		orSignInWith: 'orSignInWith',
+		dontHaveAnAccount: 'dontHaveAnAccount',
+		emailHint: 'emailHint',
+		passwordHint: 'passwordHint',
+		password: 'password'
+	},
+	registerForm: {
+		signIn: 'signIn',
+		signUp: 'signUp',
+		title: 'title',
+		titleHint: 'titleHint',
+		orSignUpWith: 'orSignUpWith',
+		alreadyHaveAnAccount: 'alreadyHaveAnAccount',
+		emailHint: 'emailHint',
+		passwordHint: 'passwordHint',
+		password: 'password'
 	},
 }
 

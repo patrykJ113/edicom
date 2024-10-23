@@ -7,8 +7,14 @@ import { isValidPassword, isValidEmail } from '@utils/auth/validate'
 import { Link } from '@/i18n/routing'
 import axios from 'axios'
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
+import messagesEnum from '@enum/messages'
+import nameSpaceEnum from '@enum/name-space'
 
 export default function LoginForm() {
+	const { loginForm } = messagesEnum
+	const t = useTranslations(nameSpaceEnum.loginForm)
+
 	const [passwordError, setPasswordError] = useState(false)
 	const [emailError, setEmailError] = useState(false)
 	const [firstSubmit, setFirstSubmit] = useState(true)
@@ -65,15 +71,17 @@ export default function LoginForm() {
 				sm:col-end-8 lg:col-start-5 lg:col-end-9 h-min'
 		>
 			<section className='flex flex-col gap-y-3'>
-				<h2 className='text-[26px] font-bold leading-8 text-center'>Sign In</h2>
+				<h2 className='text-[26px] font-bold leading-8 text-center'>
+					{t(loginForm.signIn)}
+				</h2>
 				<p className='text-base leading-7 text-gray-600 text-center'>
-					Hi! Welcome back, you&apos;ve been missed
+					{t(loginForm.titleHint)}
 				</p>
 			</section>
 
 			<section className='flex flex-col gap-5'>
 				<Input
-					hint='email is required'
+					hint={t(loginForm.emailHint)}
 					type='email'
 					label='E-mail'
 					name='email'
@@ -81,25 +89,23 @@ export default function LoginForm() {
 					validateCallBack={validateEmail}
 				/>
 				<Input
-					hint={`
-						Password must be 8-16 characters, include an uppercase letter, 
-						lowercase letter, number, and special character (e.g., ! @ # $)`}
+					hint={t(loginForm.passwordHint)}
 					type='password'
-					label='Password'
+					label={t(loginForm.password)}
 					name='password'
 					error={passwordError}
 					validateCallBack={validatePassword}
 				/>
 				<div className={'flex justify-between'}>
-					<Checkbox>Remember Me</Checkbox>
+					<Checkbox>{t(loginForm.rememberMe)}</Checkbox>
 					<span
 						className='text-brand underline-offset-4 underline hover:cursor-pointer text-sm leading-5
 							font-semibold'
 					>
-						Forgot Password?
+						{t(loginForm.forgotPassword)}
 					</span>
 				</div>
-				<Button>Sign In</Button>
+				<Button>{t(loginForm.signIn)}</Button>
 			</section>
 
 			<section className='flex flex-col gap-y-5'>
@@ -108,7 +114,7 @@ export default function LoginForm() {
 						text-center after:block after:h-1/2 after:border-t after:border-gray-500
 						after:w-9 before:block before:border-t before:border-gray-500 before:w-9'
 				>
-					Or Sign In with
+					{t(loginForm.orSignInWith)}
 				</p>
 				<div className='flex gap-x-3 justify-center'>
 					<OAuthButton apple />
@@ -116,12 +122,12 @@ export default function LoginForm() {
 					<OAuthButton fb />
 				</div>
 				<p className='text-sm leading-5 text-center'>
-					<span>Don&apos;t have an account ? </span>
+					<span>{t(loginForm.dontHaveAnAccount)}</span>
 					<Link
 						href='/auth/register'
 						className='text-brand font-semibold underline-offset-4 underline'
 					>
-						Sing Up
+						{t(loginForm.signUp)}
 					</Link>
 				</p>
 			</section>

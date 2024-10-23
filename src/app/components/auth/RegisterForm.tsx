@@ -6,8 +6,14 @@ import { isValidPassword, isValidEmail } from '@utils/auth/validate'
 import { Link } from '@/i18n/routing'
 import axios from 'axios'
 import { useState } from 'react'
+import { useTranslations } from 'next-intl'
+import messagesEnum from '@enum/messages'
+import nameSpaceEnum from '@enum/name-space'
 
 export default function RegisterForm() {
+    const { registerForm } = messagesEnum
+	const t = useTranslations(nameSpaceEnum.registerForm)
+
 	const [passwordError, setPasswordError] = useState(false)
 	const [emailError, setEmailError] = useState(false)
 	const [firstSubmit, setFirstSubmit] = useState(true)
@@ -65,16 +71,16 @@ export default function RegisterForm() {
 		>
 			<section className='flex flex-col gap-y-3'>
 				<h2 className='text-[26px] font-bold leading-8 text-center'>
-					Create Account
+					{t(registerForm.title)}
 				</h2>
 				<p className='text-base leading-7 text-gray-600 text-center'>
-					Fill your information below or register with your social account
+					{t(registerForm.titleHint)}
 				</p>
 			</section>
 
 			<section className='flex flex-col gap-5'>
 				<Input
-					hint='email is required'
+					hint={t(registerForm.emailHint)}
 					type='email'
 					label='E-mail'
 					name='email'
@@ -82,16 +88,14 @@ export default function RegisterForm() {
 					validateCallBack={validateEmail}
 				/>
 				<Input
-					hint={`
-						Password must be 8-16 characters, include an uppercase letter, 
-						lowercase letter, number, and special character (e.g., ! @ # $)`}
+					hint={t(registerForm.passwordHint)}
 					type='password'
-					label='Password'
+					label={t(registerForm.password)}
 					name='password'
 					error={passwordError}
 					validateCallBack={validatePassword}
 				/>
-				<Button>Sign Up</Button>
+				<Button>{t(registerForm.signUp)}</Button>
 			</section>
 
 			<section className='flex flex-col gap-y-5'>
@@ -100,7 +104,7 @@ export default function RegisterForm() {
 						text-center after:block after:h-1/2 after:border-t after:border-gray-500
 						after:w-9 before:block before:border-t before:border-gray-500 before:w-9'
 				>
-					Or Sign Up with
+					{t(registerForm.orSignUpWith)}
 				</p>
 				<div className='flex gap-x-3 justify-center'>
 					<OAuthButton apple />
@@ -108,12 +112,12 @@ export default function RegisterForm() {
 					<OAuthButton fb />
 				</div>
 				<p className='text-sm leading-5 text-center'>
-					<span>Already have an account ? </span>
+					<span>{t(registerForm.alreadyHaveAnAccount)}</span>
 					<Link
 						href={'/auth/login'}
 						className='text-brand font-semibold underline-offset-4 underline'
 					>
-						Sing In
+						{t(registerForm.signIn)}
 					</Link>
 				</p>
 			</section>
