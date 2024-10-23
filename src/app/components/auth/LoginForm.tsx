@@ -56,7 +56,6 @@ export default function LoginForm() {
 		}
 
 		logInUser(data)
-
 	}
 
 	return (
@@ -122,7 +121,7 @@ export default function LoginForm() {
 						href='/auth/register'
 						className='text-brand font-semibold underline-offset-4 underline'
 					>
-						 Sing Up
+						Sing Up
 					</Link>
 				</p>
 			</section>
