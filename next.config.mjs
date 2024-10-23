@@ -14,7 +14,7 @@ const nextConfig = {
 		config.module.rules.push({
 			test: /\.svg$/,
 			issuer: /\.css$/,
-			type: 'asset/resource', // Handles SVG as a static file
+			type: 'asset/resource',
 		})
 
 		return config
