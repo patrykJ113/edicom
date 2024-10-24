@@ -82,6 +82,7 @@ export default function Input({
 			<input
 				type={type}
 				name={name}
+				required={required}
 				autoComplete={isPassword()}
 				className={`px-3 py-2 text-gray-700 outline-none text-base leading-6 ${getInputStyle()}`}
 				onChange={handleChange}
