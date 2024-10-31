@@ -5,7 +5,6 @@ import provideTranslations from '@/utils/test/provideTranslations'
 
 test('button toggles dropdown on click', async () => {
 	render(await provideTranslations(<YourAccountBtn />))
-	screen.debug()
 	const btn = screen.getByRole('button', {
 		name: /you're account/i,
 	})
