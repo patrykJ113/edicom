@@ -122,10 +122,10 @@ describe('Input', () => {
 
 	it('The password visibility is toggled when clicking the eye icons', async () => {
 		const { container } = render(<Input label='Name' type='password' />)
-		const showPassword = screen.getByRole('button') 
+		const showPassword = screen.getByRole('button')
 		const input = container.querySelector('input[type="password"]')
 
-		expect(input).toBeInTheDocument();
+		expect(input).toBeInTheDocument()
 
 		await userEvent.click(showPassword)
 
@@ -133,6 +133,5 @@ describe('Input', () => {
 
 		await userEvent.click(showPassword)
 		expect(input).toHaveAttribute('type', 'password')
-
 	})
 })
