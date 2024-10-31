@@ -21,9 +21,9 @@
 			"@/*": ["./src/*"],
 			"@messages/*": ["./src/messages/*"],
 			"@components/*": ["./src/app/components/*"],
-			"@enum/*": ["./src/app/enum/*"],
+			"@enum/*": ["./src/enum/*"],
 			"@svg/*": ["./src/assets/svg/*"],
-			"@utils/*": ["./src/utils/*"],
+			"@utils/*": ["./src/utils/*"]
 		}
 	},
 	"include": [

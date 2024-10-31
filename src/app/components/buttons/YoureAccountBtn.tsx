@@ -3,8 +3,8 @@
 import React, { useState, useRef, useEffect } from 'react'
 import DropDown from '@components/DropDown'
 import { useTranslations } from 'next-intl'
-import nameSpaceEnum from '@/app/enum/name-space'
-import messagesEnum from '@/app/enum/messages'
+import nameSpaceEnum from '@enum/name-space'
+import messagesEnum from '@enum/messages'
 
 export default function YoureAccountBtn() {
 	const t = useTranslations(nameSpaceEnum.youreAccountBtn)

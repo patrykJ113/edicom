@@ -1,4 +1,4 @@
-import { Messages } from '@/app/types/messages'
+import { Messages } from '@/types/messages'
 
 const messages: Messages = {
 	topNav: {
