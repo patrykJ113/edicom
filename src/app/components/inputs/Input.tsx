@@ -10,14 +10,12 @@ type Props = {
 	error?: string
 	name?: string
 	type?:
-		| 'button'
 		| 'date'
 		| 'email'
 		| 'file'
 		| 'image'
 		| 'number'
 		| 'password'
-		| 'submit'
 		| 'tel'
 		| 'text'
 }
