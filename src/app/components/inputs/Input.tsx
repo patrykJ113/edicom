@@ -70,8 +70,10 @@ export default function Input({
 	}
 
 	useEffect(() => {
-		setInputType(showPassword ? 'text' : 'password')
-	}, [showPassword])
+		if (isPassword()) {
+			setInputType(showPassword ? 'text' : 'password')
+		}
+	}, [showPassword, isPassword])
 
 	return (
 		<article className='flex flex-col gap-y-2'>
