@@ -1,4 +1,4 @@
-import { Messages } from '@/app/types/messages'
+import { Messages } from '@/types/messages'
 import { NextIntlClientProvider } from 'next-intl'
 
 async function provideTranslations(
@@ -7,7 +7,7 @@ async function provideTranslations(
 	language: string = 'en',
 ) {
 	if (!messages) {
-		({ default: messages } = await import(`@messages/${language}`))
+		;({ default: messages } = await import(`@messages/${language}`))
 	}
 
 	return (

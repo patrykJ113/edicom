@@ -11,14 +11,14 @@ export type Messages = {
 		messages: string
 		account: string
 	}
-	youreAccountBtn: {
+	yourAccountBtn: {
 		btnLabel: string
 		options: {
 			listings: string
 			messages: string
 			payments: string
 			settings: string
-			foloved: string
+			followed: string
 			logOut: string
 		}
 	}
@@ -61,14 +61,14 @@ export type MessagesEnum = {
 		messages: 'messages'
 		account: 'account'
 	}
-	youreAccountBtn: {
+	yourAccountBtn: {
 		btnLabel: 'btnLabel'
 		options: {
 			listings: 'options.listings'
 			messages: 'options.messages'
 			payments: 'options.payments'
 			settings: 'options.settings'
-			foloved: 'options.foloved'
+			followed: 'options.followed'
 			logOut: 'options.logOut'
 		}
 	}
@@ -100,7 +100,7 @@ export type MessagesEnum = {
 
 export type NameSpaceEnum = {
 	topNav: 'topNav'
-	youreAccountBtn: 'youreAccountBtn'
+	yourAccountBtn: 'yourAccountBtn'
 	bottomNav: 'bottomNav'
 	loginForm: 'loginForm'
 	registerForm: 'registerForm'

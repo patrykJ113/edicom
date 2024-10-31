@@ -7,7 +7,7 @@ import { getMessages } from 'next-intl/server'
 
 export const metadata: Metadata = {
 	title: 'Edicom',
-	description: 'Ecomarce site',
+	description: 'E commerce site',
 }
 
 export const roboto = Roboto({

@@ -6,13 +6,13 @@ import { useTranslations } from 'next-intl'
 import nameSpaceEnum from '@enum/name-space'
 import messagesEnum from '@enum/messages'
 
-export default function YoureAccountBtn() {
-	const t = useTranslations(nameSpaceEnum.youreAccountBtn)
+export default function YourAccountBtn() {
+	const t = useTranslations(nameSpaceEnum.yourAccountBtn)
 	const [opened, setOpened] = useState(false)
 	const btnRef = useRef<HTMLDivElement | null>(null)
-	const { youreAccountBtn } = messagesEnum
+	const { yourAccountBtn } = messagesEnum
 
-	const options = Object.values(youreAccountBtn.options).map(val => t(val))
+	const options = Object.values(yourAccountBtn.options).map(val => t(val))
 
 	const handleClickOutside = (event: Event) => {
 		const target = event.target as Node

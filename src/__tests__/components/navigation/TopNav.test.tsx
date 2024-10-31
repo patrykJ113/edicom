@@ -3,7 +3,7 @@ import TopNav from '@/app/components/navigation/TopNav'
 import provideTranslations from '@/utils/test/provideTranslations'
 import testTranslation from '@/utils/test/testTranslation'
 
-test('elements in TopNav are diplyed corectly', async () => {
+test('elements in TopNav are displayed correctly', async () => {
 	const { rerender } = render(
 		await provideTranslations(<TopNav isLoggedIn={true} />),
 	)
@@ -43,7 +43,7 @@ test('dropdown is toggled correctly in TopNav', async () => {
 	expect(dropDown).toHaveClass('opacity-0')
 })
 
-test('TopNav is translated corectly', async () => {
+test('TopNav is translated correctly', async () => {
 	await testTranslation(<TopNav isLoggedIn={false} />, ({ topNav }) => {
 		const register = screen.getByRole('link', {
 			name: new RegExp(topNav.register, 'i'),

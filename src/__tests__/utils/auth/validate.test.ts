@@ -1,6 +1,6 @@
 import {isValidPassword, isValidEmail} from '@utils/auth/validate'
 
-test('Validates password corectly', () => {
+test('Validates password correctly', () => {
     expect(isValidPassword('')).toBe(false)
     expect(isValidPassword('W')).toBe(false)
     expect(isValidPassword('Ww')).toBe(false)
@@ -13,7 +13,7 @@ test('Validates password corectly', () => {
     expect(isValidPassword('Ww1@aaaaaaaaaaaa')).toBe(true)
 })
 
-test('Validates email corectly', () => {
+test('Validates email correctly', () => {
     expect(isValidEmail('123')).toBe(false)
     expect(isValidEmail('123@')).toBe(false)
     expect(isValidEmail('123@.')).toBe(false)

@@ -8,26 +8,26 @@ jest.mock('@svg/home.svg', () => 'svg')
 test('BottomNav has five buttons', async () => {
 	render(await provideTranslations(<BottomNav />))
 
-	const listeItems = screen.getAllByRole('listitem')
-	expect(listeItems).toHaveLength(5)
+	const listItems = screen.getAllByRole('listitem')
+	expect(listItems).toHaveLength(5)
 })
 
-test('BottomNav click worck corectly', async () => {
+test('BottomNav click works correctly', async () => {
 	render(await provideTranslations(<BottomNav />))
-	const listeItems = screen.getAllByRole('listitem')
+	const listItems = screen.getAllByRole('listitem')
 
-	for (const listeItem of listeItems) {
-		fireEvent.click(listeItem)
+	for (const listItem of listItems) {
+		fireEvent.click(listItem)
 
-		const svg = listeItem.querySelector('svg')
+		const svg = listItem.querySelector('svg')
 		expect(svg).toHaveClass('fill-brand')
 
-		const span = listeItem.querySelector('span')
+		const span = listItem.querySelector('span')
 		expect(span).toHaveClass('text-brand')
 		expect(span).not.toHaveClass('text-gray-800')
 
-		listeItems.forEach(li => {
-			if (li !== listeItem) {
+		listItems.forEach(li => {
+			if (li !== listItem) {
 				const svg = li.querySelector('svg')
 				expect(svg).not.toHaveClass('fill-brand')
 				expect(svg).toHaveClass('fill-gray-800')

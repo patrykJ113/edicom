@@ -1,5 +1,5 @@
 import { Link } from '@/i18n/routing'
-import YoureAccountBtn from '@components/buttons/YoureAccountBtn'
+import YourAccountBtn from '@components/buttons/YourAccountBtn'
 import { useTranslations } from 'next-intl'
 import messagesEnum from '@enum/messages'
 import nameSpaceEnum from '@enum/name-space'
@@ -31,7 +31,7 @@ export default function TopNav({ isLoggedIn }: Props) {
 							</li>
 						</ul>
 					:	<div className='flex items-center gap-4 gap-x-6'>
-							<YoureAccountBtn />
+							<YourAccountBtn />
 							<Link href='/' className='text-lg font-medium text-brand'>
 								{t(topNav.newListing)}
 							</Link>

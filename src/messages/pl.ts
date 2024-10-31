@@ -13,14 +13,14 @@ const messages: Messages = {
 		messages: 'Wiadomości',
 		account: 'Konto',
 	},
-	youreAccountBtn: {
+	yourAccountBtn: {
 		btnLabel: 'Twoje Konto',
 		options: {
 			listings: 'Ogłoszenia',
 			messages: 'Wiadmości',
 			payments: 'Płatności',
 			settings: 'Ustawienia',
-			foloved: 'Obserwowane',
+			followed: 'Obserwowane',
 			logOut: 'Wyloguj się',
 		},
 	},

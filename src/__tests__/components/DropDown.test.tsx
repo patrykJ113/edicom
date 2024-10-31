@@ -15,11 +15,11 @@ test('toggle the dropdown', () => {
 test('renders the article', () => {
 	const options = ['item 1', 'item 2', 'item 3']
 	render(<DropDown options={options} opened={true} />)
-	const listItmes = screen.getAllByRole('listitem')
+	const listItems = screen.getAllByRole('listitem')
 
-	expect(listItmes).toHaveLength(options.length)
+	expect(listItems).toHaveLength(options.length)
 
-	listItmes.forEach((listItme, index) => {
-		expect(listItme).toHaveTextContent(options[index])
+	listItems.forEach((listItem, index) => {
+		expect(listItem).toHaveTextContent(options[index])
 	})
 })
