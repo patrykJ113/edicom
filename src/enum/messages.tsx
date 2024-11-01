@@ -42,8 +42,8 @@ const messagesEnum: MessagesEnum = {
 		signUp: 'signUp',
 		title: 'title',
 		titleHint: 'titleHint',
-		orSignUpWith: 'orSignUpWith',
-		alreadyHaveAnAccount: 'alreadyHaveAnAccount',
+		orWithYoureEmail: 'orWithYoureEmail',
+		haveAnAccount: 'haveAnAccount',
 		emailHint: 'emailHint',
 		passwordHint: 'passwordHint',
 		password: 'password'

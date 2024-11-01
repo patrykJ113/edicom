@@ -42,10 +42,9 @@ const messages: Messages = {
 		signIn: 'Sing In',
 		signUp: 'Sign Up',
 		title: 'Create Account',
-		titleHint:
-			'Fill your information below or register with your social account',
-		orSignUpWith: 'Or Sign Up with',
-		alreadyHaveAnAccount: 'Already have an account? ',
+		titleHint: 'Register with your social account',
+		orWithYoureEmail: 'or with you’re email',
+		haveAnAccount: 'Have an account ? ',
 		emailHint: 'email is required',
 		passwordHint: `Password must be 8-16 characters, include an uppercase letter, 
 						lowercase letter, number, and special character (e.g., ! @ # $)`,

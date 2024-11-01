@@ -42,10 +42,9 @@ const messages: Messages = {
 		signIn: 'Zaloguj się',
 		signUp: 'Zarejestruj się',
 		title: 'Utwórz konto',
-		titleHint:
-			'Wypełnij swoje dane poniżej lub zarejestruj się przez konto społecznościowe',
-		orSignUpWith: 'Lub zarejestruj się za pomocą',
-		alreadyHaveAnAccount: 'Masz już konto? ',
+		titleHint: 'Zarejestruj się na swoim koncie społecznościowym',
+		orWithYoureEmail: 'lub adresu e-mail',
+		haveAnAccount: 'Masz konto ? ',
 		emailHint: 'Email jest wymagany',
 		passwordHint:
 			'Hasło musi mieć 8-16 znaków, zawierać wielką literę, małą literę, cyfrę oraz znak specjalny (np. ! @ # $)',

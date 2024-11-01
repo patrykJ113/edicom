@@ -12,12 +12,12 @@ export default function OAuthButton({ google, apple, fb }: Props) {
 	return (
 		<button
 			type='button'
-			className='flex justify-center items-center p-2 rounded-full border border-gray-300
-				hover:border-brand transition-all duration-150 hover:shadow-blue-1'
+			className='flex justify-center items-center p-2 border-b-2 border-b-transparent
+				transition-colors duration-150 hover:border-b-brand'
 		>
-			{apple && <Apple />}
-			{google && <Google />}
-			{fb && <Fb />}
+			{apple && <Apple className='h-7 w-7' />}
+			{google && <Google className='h-7 w-7' />}
+			{fb && <Fb className='h-7 w-7' />}
 		</button>
 	)
 }

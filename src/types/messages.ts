@@ -40,8 +40,8 @@ export type Messages = {
 		signUp: string
 		title: string
 		titleHint: string
-		orSignUpWith: string
-		alreadyHaveAnAccount: string
+		orWithYoureEmail: string
+		haveAnAccount: string
 		emailHint: string
 		passwordHint: string
 		password: string
@@ -90,8 +90,8 @@ export type MessagesEnum = {
 		signUp: 'signUp'
 		title: 'title'
 		titleHint: 'titleHint'
-		orSignUpWith: 'orSignUpWith'
-		alreadyHaveAnAccount: 'alreadyHaveAnAccount'
+		orWithYoureEmail: 'orWithYoureEmail'
+		haveAnAccount: 'haveAnAccount'
 		emailHint: 'emailHint'
 		passwordHint: 'passwordHint'
 		password: 'password'
