@@ -42,9 +42,13 @@ export type Messages = {
 		titleHint: string
 		orWithYoureEmail: string
 		haveAnAccount: string
-		emailHint: string
-		passwordHint: string
+		nameRequired: string
+		emailRequired: string
+		emailInvalid: string
+		passwordRequired: string
+		passwordInvalid: string
 		password: string
+		name: string
 	}
 }
 
@@ -92,9 +96,13 @@ export type MessagesEnum = {
 		titleHint: 'titleHint'
 		orWithYoureEmail: 'orWithYoureEmail'
 		haveAnAccount: 'haveAnAccount'
-		emailHint: 'emailHint'
-		passwordHint: 'passwordHint'
+		nameRequired: 'nameRequired'
+		emailRequired: 'emailRequired'
+		emailInvalid: 'emailInvalid'
+		passwordRequired: 'passwordRequired'
+		passwordInvalid: 'passwordInvalid'
 		password: 'password'
+		name: 'name'
 	}
 }
 

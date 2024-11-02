@@ -15,20 +15,9 @@ export default function RegisterForm() {
 	const { registerForm } = messagesEnum
 	const t = useTranslations(nameSpaceEnum.registerForm)
 
-	const [passwordError, setPasswordError] = useState(false)
-	const [emailError, setEmailError] = useState(false)
-	const [firstSubmit, setFirstSubmit] = useState(true)
-
-	// const validateEmail = (email: string) => {
-	// 	if (!firstSubmit) {
-	// 		setEmailError(!isValidEmail(email))
-	// 	}
-	// }
-	// const validatePassword = (password: string) => {
-	// 	if (!firstSubmit) {
-	// 		setPasswordError(!isValidPassword(password))
-	// 	}
-	// }
+	const [nameError, setNameError] = useState('')
+	const [passwordError, setPasswordError] = useState('')
+	const [emailError, setEmailError] = useState('')
 
 	const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
@@ -45,22 +34,49 @@ export default function RegisterForm() {
 			.catch(err => console.log(err))
 	}
 
+	const validateField = (
+		value: string,
+		requiredMsg: string,
+		invalidMsg?: string,
+		isValidFn?: (val: string) => boolean,
+	) => {
+		if (!value) return requiredMsg
+		if (isValidFn && !isValidFn(value)) return invalidMsg!
+		return ''
+	}
+
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 
 		const formData = new FormData(e.currentTarget)
 		const data = Object.fromEntries(formData.entries())
 
-		if (firstSubmit) {
-			setEmailError(!isValidEmail(data.email as string))
-			setPasswordError(!isValidPassword(data.password as string))
-			setFirstSubmit(false)
+		const { name, email, password } = data
+
+		const errors = {
+			nameError: validateField(name as string, t(registerForm.nameRequired)),
+			emailError: validateField(
+				email as string,
+				t(registerForm.emailRequired),
+				t(registerForm.emailInvalid),
+				isValidEmail,
+			),
+			passwordError: validateField(
+				password as string,
+				t(registerForm.passwordRequired),
+				t(registerForm.passwordInvalid),
+				isValidPassword,
+			),
 		}
 
-		if (emailError || passwordError) {
-			return
-		}
+		const hasErrors = Object.values(errors).some(error => error)
 
+		setNameError(errors.nameError)
+		setEmailError(errors.emailError)
+		setPasswordError(errors.passwordError)
+
+		if (hasErrors) return
+		
 		registerUser(data)
 	}
 
@@ -96,13 +112,18 @@ export default function RegisterForm() {
 					<span className='h-[1px] flex-1 bg-gray-200'></span>
 				</div>
 				<section className='grid gap-7'>
-					<Input label='Name' name='name' />
-					<Input label='E-mail' name='email' type='email' />
-					<Input label='Password' name='password' type='password' />
+					<Input label={t(registerForm.name)} name='name' error={nameError} />
+					<Input label='E-mail' name='email' type='email' error={emailError} />
+					<Input
+						label={t(registerForm.password)}
+						name='password'
+						type='password'
+						error={passwordError}
+					/>
 				</section>
 			</section>
 
-			<Button>Sign Up</Button>
+			<Button>{t(registerForm.signUp)}</Button>
 
 			<p className='text-sm leading-5 text-center'>
 				{t(registerForm.haveAnAccount)}

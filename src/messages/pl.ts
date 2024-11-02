@@ -42,12 +42,16 @@ const messages: Messages = {
 		signIn: 'Zaloguj się',
 		signUp: 'Zarejestruj się',
 		title: 'Utwórz konto',
-		titleHint: 'Zarejestruj się na swoim koncie społecznościowym',
-		orWithYoureEmail: 'lub adresu e-mail',
+		titleHint: 'Zarejestruj się kontem społecznościowym',
+		orWithYoureEmail: 'lub użyj adresu e-mail',
 		haveAnAccount: 'Masz konto ? ',
-		emailHint: 'Email jest wymagany',
-		passwordHint:
+		nameRequired: 'Nazwa jest wymagany',
+		emailRequired: 'Email jest wymagany',
+		emailInvalid: 'Adres e-mail jest nieprawidłowy',
+		passwordRequired: 'Hasło jest wymagane',
+		passwordInvalid:
 			'Hasło musi mieć 8-16 znaków, zawierać wielką literę, małą literę, cyfrę oraz znak specjalny (np. ! @ # $)',
+		name: 'Nazwa',
 		password: 'Hasło',
 	},
 }

@@ -44,8 +44,12 @@ const messagesEnum: MessagesEnum = {
 		titleHint: 'titleHint',
 		orWithYoureEmail: 'orWithYoureEmail',
 		haveAnAccount: 'haveAnAccount',
-		emailHint: 'emailHint',
-		passwordHint: 'passwordHint',
+		nameRequired: 'nameRequired',
+		emailRequired: 'emailRequired',
+		emailInvalid: 'emailInvalid',
+		passwordRequired: 'passwordRequired',
+		passwordInvalid: 'passwordInvalid',
+		name: 'name',
 		password: 'password'
 	},
 }
