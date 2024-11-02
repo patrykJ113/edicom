@@ -7,6 +7,7 @@ import Input from '@components/inputs/Input'
 import Button from '@components/buttons/Button'
 import { Link, useRouter } from '@/i18n/routing'
 import Alert from '@components/Alert'
+import Spinner from '@components/Spinner'
 
 import { useTranslations } from 'next-intl'
 import messagesEnum from '@enum/messages'
@@ -23,6 +24,7 @@ export default function RegisterForm() {
 	const [emailError, setEmailError] = useState('')
 	const [firstSubmit, setFirstSubmit] = useState(true)
 	const [serverError, setServerError] = useState('')
+	const [loading, setLoading] = useState(false)
 
 	const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
@@ -35,6 +37,7 @@ export default function RegisterForm() {
 	}
 
 	const registerUser = (data: FormData) => {
+		setLoading(true)
 		axios
 			.post(`${apiUrl}/auth/register`, data)
 			.then(res => {
@@ -48,8 +51,10 @@ export default function RegisterForm() {
 				if (err.response && err.response.data) {
 					const errorData = err.response.data as ErrorResponse
 					setServerError(errorData.error)
+					setLoading(false)
 				} else {
 					setServerError(t_errors(errors.serverDown))
+					setLoading(false)
 				}
 			})
 	}
@@ -135,8 +140,8 @@ export default function RegisterForm() {
 	return (
 		<form
 			onSubmit={handleSubmit}
-			className='bg-white p-5 grid gap-10 rounded-xl col-span-full sm:col-start-2 sm:col-end-8
-				lg:col-start-5 lg:col-end-9 h-min'
+			className='bg-white p-5 grid gap-5 rounded-xl col-span-full sm:col-start-2 sm:col-end-8
+				lg:col-start-5 lg:col-end-9 h-min relative'
 		>
 			<section className='flex flex-col gap-5'>
 				<section className='flex flex-col gap-[10px]'>
@@ -147,58 +152,60 @@ export default function RegisterForm() {
 						{t(registerForm.titleHint)}
 					</p>
 				</section>
-
+			</section>
+			<section className='relative flex flex-col gap-10'>
 				<section className='flex justify-center gap-4'>
 					<OAuthButton apple />
 					<OAuthButton google />
 					<OAuthButton fb />
 				</section>
-			</section>
 
-			<section className='flex flex-col gap-[10px]'>
-				{serverError && <Alert>{serverError}</Alert>}
-				<div className='flex items-center gap-2'>
-					<span className='h-[1px] flex-1 bg-gray-200'></span>
-					<span className='text-sm leading-5 text-gray-400'>
-						{t(registerForm.orWithYoureEmail)}
-					</span>
-					<span className='h-[1px] flex-1 bg-gray-200'></span>
-				</div>
-				<section className='grid gap-7'>
-					<Input
-						label={t(registerForm.name)}
-						name='name'
-						error={nameError}
-						validateCb={validateName}
-					/>
-					<Input
-						label='E-mail'
-						name='email'
-						type='email'
-						error={emailError}
-						validateCb={validateEmail}
-					/>
-					<Input
-						label={t(registerForm.password)}
-						name='password'
-						type='password'
-						error={passwordError}
-						validateCb={validatePassword}
-					/>
+				<section className='flex flex-col gap-[10px]'>
+					{serverError && <Alert>{serverError}</Alert>}
+					<div className='flex items-center gap-2'>
+						<span className='h-[1px] flex-1 bg-gray-200'></span>
+						<span className='text-sm leading-5 text-gray-400'>
+							{t(registerForm.orWithYoureEmail)}
+						</span>
+						<span className='h-[1px] flex-1 bg-gray-200'></span>
+					</div>
+					<section className='grid gap-7'>
+						<Input
+							label={t(registerForm.name)}
+							name='name'
+							error={nameError}
+							validateCb={validateName}
+						/>
+						<Input
+							label='E-mail'
+							name='email'
+							type='email'
+							error={emailError}
+							validateCb={validateEmail}
+						/>
+						<Input
+							label={t(registerForm.password)}
+							name='password'
+							type='password'
+							error={passwordError}
+							validateCb={validatePassword}
+						/>
+					</section>
 				</section>
+
+				<Button>{t(registerForm.signUp)}</Button>
+
+				<p className='text-sm leading-5 text-center'>
+					{t(registerForm.haveAnAccount)}
+					<Link
+						className='text-brand font-semibold hover:text-brand-600 active:text-brand-700'
+						href={'/auth/login'}
+					>
+						{t(registerForm.signIn)}
+					</Link>
+				</p>
+				{loading && <Spinner />}
 			</section>
-
-			<Button>{t(registerForm.signUp)}</Button>
-
-			<p className='text-sm leading-5 text-center'>
-				{t(registerForm.haveAnAccount)}
-				<Link
-					className='text-brand font-semibold hover:text-brand-600 active:text-brand-700'
-					href={'/auth/login'}
-				>
-					{t(registerForm.signIn)}
-				</Link>
-			</p>
 		</form>
 	)
 }
