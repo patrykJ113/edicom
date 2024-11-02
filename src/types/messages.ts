@@ -50,6 +50,9 @@ export type Messages = {
 		password: string
 		name: string
 	}
+	errors: {
+		serverDown: string
+	}
 }
 
 export type MessagesEnum = {
@@ -104,6 +107,9 @@ export type MessagesEnum = {
 		password: 'password'
 		name: 'name'
 	}
+	errors: {
+		serverDown: 'serverDown'
+	}
 }
 
 export type NameSpaceEnum = {
@@ -112,4 +118,5 @@ export type NameSpaceEnum = {
 	bottomNav: 'bottomNav'
 	loginForm: 'loginForm'
 	registerForm: 'registerForm'
+	errors: 'errors'
 }

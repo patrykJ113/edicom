@@ -54,6 +54,9 @@ const messages: Messages = {
 		name: 'Nazwa',
 		password: 'Hasło',
 	},
+	errors: {
+		serverDown: 'Ups! Wygląda na to, że nasze serwery nie działają. Spróbuj ponownie później'
+	}
 }
 
 export default messages

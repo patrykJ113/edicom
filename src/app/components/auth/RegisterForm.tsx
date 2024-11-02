@@ -1,24 +1,28 @@
 'use client'
 import { isValidPassword, isValidEmail } from '@utils/auth/validate'
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 import { useState } from 'react'
-import OAuthButton from '../buttons/OAuthButton'
+import OAuthButton from '@components/buttons/OAuthButton'
 import Input from '@components/inputs/Input'
 import Button from '@components/buttons/Button'
-import { Link } from '@/i18n/routing'
+import { Link, useRouter } from '@/i18n/routing'
+import Alert from '@components/Alert'
 
 import { useTranslations } from 'next-intl'
 import messagesEnum from '@enum/messages'
 import nameSpaceEnum from '@enum/name-space'
 
 export default function RegisterForm() {
-	const { registerForm } = messagesEnum
+	const { registerForm, errors } = messagesEnum
 	const t = useTranslations(nameSpaceEnum.registerForm)
+	const t_errors = useTranslations(nameSpaceEnum.errors)
+	const router = useRouter()
 
 	const [nameError, setNameError] = useState('')
 	const [passwordError, setPasswordError] = useState('')
 	const [emailError, setEmailError] = useState('')
 	const [firstSubmit, setFirstSubmit] = useState(true)
+	const [serverError, setServerError] = useState('')
 
 	const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
@@ -26,13 +30,28 @@ export default function RegisterForm() {
 		[k: string]: FormDataEntryValue
 	}
 
+	type ErrorResponse = {
+		error: string
+	}
+
 	const registerUser = (data: FormData) => {
 		axios
 			.post(`${apiUrl}/auth/register`, data)
-			// eslint-disable-next-line no-console
-			.then(res => console.log(res))
-			// eslint-disable-next-line no-console
-			.catch(err => console.log(err))
+			.then(res => {
+				// eslint-disable-next-line no-console
+				console.log(res)
+				router.push('/')
+			})
+			.catch((err: AxiosError) => {
+				// eslint-disable-next-line no-console
+				console.log(err)
+				if (err.response && err.response.data) {
+					const errorData = err.response.data as ErrorResponse
+					setServerError(errorData.error)
+				} else {
+					setServerError(t_errors(errors.serverDown))
+				}
+			})
 	}
 
 	const validateField = (
@@ -80,7 +99,7 @@ export default function RegisterForm() {
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
 		setFirstSubmit(false)
-		
+
 		const formData = new FormData(e.currentTarget)
 		const data = Object.fromEntries(formData.entries())
 
@@ -137,6 +156,7 @@ export default function RegisterForm() {
 			</section>
 
 			<section className='flex flex-col gap-[10px]'>
+				{serverError && <Alert>{serverError}</Alert>}
 				<div className='flex items-center gap-2'>
 					<span className='h-[1px] flex-1 bg-gray-200'></span>
 					<span className='text-sm leading-5 text-gray-400'>

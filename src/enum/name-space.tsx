@@ -6,6 +6,7 @@ const nameSpaceEnum: NameSpaceEnum = {
 	yourAccountBtn: 'yourAccountBtn',
 	loginForm: 'loginForm',
 	registerForm: 'registerForm',
+	errors: 'errors'
 }
 
 export default nameSpaceEnum

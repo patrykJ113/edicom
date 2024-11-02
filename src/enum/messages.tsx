@@ -52,6 +52,9 @@ const messagesEnum: MessagesEnum = {
 		name: 'name',
 		password: 'password'
 	},
+	errors: {
+		serverDown: 'serverDown'
+	}
 }
 
 export default messagesEnum

@@ -54,6 +54,9 @@ const messages: Messages = {
 		name: 'Name',
 		password: 'Password',
 	},
+	errors: {
+		serverDown: 'Oops! It looks like our servers are down. We\'re working on getting things back to normal'
+	}
 }
 
 export default messages
