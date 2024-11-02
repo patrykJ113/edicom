@@ -18,6 +18,7 @@ type Props = {
 		| 'password'
 		| 'tel'
 		| 'text'
+	validateCb?: (str: string) => void
 }
 
 export default function Input({
@@ -26,6 +27,7 @@ export default function Input({
 	error,
 	name,
 	type = 'text',
+	validateCb,
 }: Props) {
 	const [isFocused, setIsFocused] = useState(false)
 	const [inputValue, setInputValue] = useState('')
@@ -42,6 +44,9 @@ export default function Input({
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setInputValue(e.target.value)
+		if (validateCb) {
+			validateCb(e.target.value)
+		}
 	}
 
 	const getFocusStyle = () => {

@@ -18,6 +18,7 @@ export default function RegisterForm() {
 	const [nameError, setNameError] = useState('')
 	const [passwordError, setPasswordError] = useState('')
 	const [emailError, setEmailError] = useState('')
+	const [firstSubmit, setFirstSubmit] = useState(true)
 
 	const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
@@ -45,9 +46,41 @@ export default function RegisterForm() {
 		return ''
 	}
 
+	const validateName = (name: string) => {
+		if (!firstSubmit) {
+			const error = validateField(name as string, t(registerForm.nameRequired))
+			setNameError(error)
+		}
+	}
+
+	const validateEmail = (email: string) => {
+		if (!firstSubmit) {
+			const error = validateField(
+				email as string,
+				t(registerForm.emailRequired),
+				t(registerForm.emailInvalid),
+				isValidEmail,
+			)
+			setEmailError(error)
+		}
+	}
+
+	const validatePassword = (password: string) => {
+		if (!firstSubmit) {
+			const error = validateField(
+				password as string,
+				t(registerForm.passwordRequired),
+				t(registerForm.passwordInvalid),
+				isValidPassword,
+			)
+			setPasswordError(error)
+		}
+	}
+
 	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault()
-
+		setFirstSubmit(false)
+		
 		const formData = new FormData(e.currentTarget)
 		const data = Object.fromEntries(formData.entries())
 
@@ -76,7 +109,7 @@ export default function RegisterForm() {
 		setPasswordError(errors.passwordError)
 
 		if (hasErrors) return
-		
+
 		registerUser(data)
 	}
 
@@ -112,13 +145,25 @@ export default function RegisterForm() {
 					<span className='h-[1px] flex-1 bg-gray-200'></span>
 				</div>
 				<section className='grid gap-7'>
-					<Input label={t(registerForm.name)} name='name' error={nameError} />
-					<Input label='E-mail' name='email' type='email' error={emailError} />
+					<Input
+						label={t(registerForm.name)}
+						name='name'
+						error={nameError}
+						validateCb={validateName}
+					/>
+					<Input
+						label='E-mail'
+						name='email'
+						type='email'
+						error={emailError}
+						validateCb={validateEmail}
+					/>
 					<Input
 						label={t(registerForm.password)}
 						name='password'
 						type='password'
 						error={passwordError}
+						validateCb={validatePassword}
 					/>
 				</section>
 			</section>
