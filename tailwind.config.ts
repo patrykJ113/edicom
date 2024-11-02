@@ -57,7 +57,7 @@ const config: Config = {
 					A400: '#FF1744',
 					A700: '#D50000',
 				},
-				page: '#F2F4FF', // Default color for the page backround
+				page: '#F2F4FF',
 			},
 			boxShadow: {
 				'blue-1': '0 4px 10px 0 rgba(48, 79, 254, 0.16)',
@@ -69,6 +69,32 @@ const config: Config = {
 			},
 			lineHeight: {
 				'5.5': '22px',
+			},
+			keyframes: {
+				spinnerRotate: {
+					'100%': { transform: 'rotate(360deg)' },
+				},
+				spinnerClipFix: {
+					'0%': { clipPath: 'polygon(50% 50%, 0 0, 0 0, 0 0, 0 0, 0 0)' },
+					'25%': {
+						clipPath: 'polygon(50% 50%, 0 0, 100% 0, 100% 0, 100% 0, 100% 0)',
+					},
+					'50%': {
+						clipPath:
+							'polygon(50% 50%, 0 0, 100% 0, 100% 100%, 100% 100%, 100% 100%)',
+					},
+					'75%': {
+						clipPath:
+							'polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 100%)',
+					},
+					'100%': {
+						clipPath: 'polygon(50% 50%, 0 0, 100% 0, 100% 100%, 0 100%, 0 0)',
+					},
+				},
+			},
+			animation: {
+				spinnerRotate: 'spinnerRotate 1s linear infinite',
+				spinnerClipFix: 'spinnerClipFix 2s linear infinite',
 			},
 		},
 	},
