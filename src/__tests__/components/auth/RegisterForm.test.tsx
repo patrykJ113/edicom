@@ -194,7 +194,7 @@ describe('RegisterForm', () => {
 			})
 		})
 
-		describe.only('language translations', () => {
+		describe('language translations', () => {
 			it('the correct text is being displayed for the register form', async () => {
 				await testTranslation(<RegisterForm />, ({ registerForm }) => {
 					screen.getByRole('heading', {
