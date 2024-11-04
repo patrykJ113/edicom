@@ -179,7 +179,7 @@ export default function RegisterForm() {
 						<Input
 							label='E-mail'
 							name='email'
-							type='email'
+							type='text'
 							error={emailError}
 							validateCb={validateEmail}
 						/>

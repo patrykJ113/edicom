@@ -17,7 +17,7 @@ async function testTranslation(
 		}
 
 		rerender(await provideTranslations(el, message.default, language))
-		checkTranslation(message.default)
+		await checkTranslation(message.default)
 	}
 }
 
