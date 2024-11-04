@@ -18,4 +18,8 @@
 		@apply before:border-t before:border-t-gray-200;
 		@apply before:border-l before:border-l-gray-200;
 	}
+
+	body:has(.auth-bg) {
+		@apply bg-brand-100
+	}
 }
