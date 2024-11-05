@@ -114,10 +114,6 @@ describe('RegisterForm', () => {
 			expect(emailRequired).toBeInTheDocument()
 			expect(passwordRequired).toBeInTheDocument()
 		})
-
-		it('when all inputs are valid the form should send a request to the server', async () => {
-			render(await provideTranslations(<RegisterForm />))
-		})
 	})
 
 	describe('Dynamic input validation', () => {
@@ -179,89 +175,93 @@ describe('RegisterForm', () => {
 			expect(emailHint).toBeInTheDocument()
 			expect(passwordHint).toBeInTheDocument()
 		})
+	})
 
-		describe('RegisterForm API Integration', () => {
-			it('User registered successfully', async () => {
-				render(await provideTranslations(<RegisterForm />))
-			})
+	describe('RegisterForm API Integration', () => {
+		it('when all inputs are valid the form should send a request to the server', async () => {
+			render(await provideTranslations(<RegisterForm />))
+		})
 
-			it('Server Error', async () => {
-				render(await provideTranslations(<RegisterForm />))
-			})
+		it('User registered successfully', async () => {
+			render(await provideTranslations(<RegisterForm />))
+		})
 
-			it('Network Error', async () => {
-				render(await provideTranslations(<RegisterForm />))
+		it('Server Error', async () => {
+			render(await provideTranslations(<RegisterForm />))
+		})
+
+		it('Network Error', async () => {
+			render(await provideTranslations(<RegisterForm />))
+		})
+	})
+
+	describe('language translations', () => {
+		it('the correct text is being displayed for the register form', async () => {
+			await testTranslation(<RegisterForm />, ({ registerForm }) => {
+				screen.getByRole('heading', {
+					name: new RegExp(registerForm.title, 'i'),
+				})
+
+				screen.getByText(new RegExp(registerForm.titleHint, 'i'))
+
+				screen.getByText(new RegExp(registerForm.orWithYoureEmail, 'i'))
+
+				screen.getByRole('textbox', {
+					name: new RegExp(registerForm.name, 'i'),
+				})
+
+				screen.getByLabelText(new RegExp(registerForm.password, 'i'))
+
+				screen.getByRole('button', {
+					name: new RegExp(registerForm.signUp, 'i'),
+				})
+
+				screen.getByText(new RegExp(registerForm.haveAnAccount, 'i'))
+				screen.getByText(new RegExp(registerForm.signIn, 'i'))
 			})
 		})
 
-		describe('language translations', () => {
-			it('the correct text is being displayed for the register form', async () => {
-				await testTranslation(<RegisterForm />, ({ registerForm }) => {
-					screen.getByRole('heading', {
-						name: new RegExp(registerForm.title, 'i'),
-					})
-
-					screen.getByText(new RegExp(registerForm.titleHint, 'i'))
-
-					screen.getByText(new RegExp(registerForm.orWithYoureEmail, 'i'))
-
-					screen.getByRole('textbox', {
-						name: new RegExp(registerForm.name, 'i'),
-					})
-
-					screen.getByLabelText(new RegExp(registerForm.password, 'i'))
-
-					screen.getByRole('button', {
-						name: new RegExp(registerForm.signUp, 'i'),
-					})
-
-					screen.getByText(new RegExp(registerForm.haveAnAccount, 'i'))
-					screen.getByText(new RegExp(registerForm.signIn, 'i'))
+		it('the correct text is being displayed for the required input hints', async () => {
+			await testTranslation(<RegisterForm />, async ({ registerForm }) => {
+				const signInBtn = screen.getByRole('button', {
+					name: new RegExp(registerForm.signUp, 'i'),
 				})
+
+				await userEvent.click(signInBtn)
+
+				screen.getByText(new RegExp(registerForm.nameRequired, 'i'))
+				screen.getByText(new RegExp(registerForm.emailRequired, 'i'))
+				screen.getByText(new RegExp(registerForm.passwordRequired, 'i'))
 			})
+		})
 
-			it('the correct text is being displayed for the required input hints', async () => {
-				await testTranslation(<RegisterForm />, async ({ registerForm }) => {
-					const signInBtn = screen.getByRole('button', {
-						name: new RegExp(registerForm.signUp, 'i'),
-					})
-
-					await userEvent.click(signInBtn)
-
-					screen.getByText(new RegExp(registerForm.nameRequired, 'i'))
-					screen.getByText(new RegExp(registerForm.emailRequired, 'i'))
-					screen.getByText(new RegExp(registerForm.passwordRequired, 'i'))
+		it('the correct text is being displayed for the invalid input hints', async () => {
+			await testTranslation(<RegisterForm />, async ({ registerForm }) => {
+				const email = screen.getByRole('textbox', {
+					name: /e\-mail/i,
 				})
-			})
+				const password = screen.getByLabelText(
+					new RegExp(registerForm.password, 'i'),
+				)
 
-			it('the correct text is being displayed for the invalid input hints', async () => {
-				await testTranslation(<RegisterForm />, async ({ registerForm }) => {
-					const email = screen.getByRole('textbox', {
-						name: /e\-mail/i,
-					})
-					const password = screen.getByLabelText(
-						new RegExp(registerForm.password, 'i'),
+				const signInBtn = screen.getByRole('button', {
+					name: new RegExp(registerForm.signUp, 'i'),
+				})
+
+				await userEvent.type(email, 'email')
+				await userEvent.type(password, 'password')
+				await userEvent.click(signInBtn)
+
+				screen.getByText(new RegExp(registerForm.emailInvalid, 'i'))
+				if (registerForm.passwordInvalid.startsWith('Password')) {
+					screen.getByText(
+						/password must be 8-16 characters, include an uppercase letter, lowercase letter, number, and special character \(e\.g\., ! @ # \$\)/i,
 					)
-
-					const signInBtn = screen.getByRole('button', {
-						name: new RegExp(registerForm.signUp, 'i'),
-					})
-
-					await userEvent.type(email, 'email')
-					await userEvent.type(password, 'password')
-					await userEvent.click(signInBtn)
-
-					screen.getByText(new RegExp(registerForm.emailInvalid, 'i'))
-					if (registerForm.passwordInvalid.startsWith('Password')) {
-						screen.getByText(
-							/password must be 8-16 characters, include an uppercase letter, lowercase letter, number, and special character \(e\.g\., ! @ # \$\)/i,
-						)
-					} else {
-						screen.getByText(
-							/hasło musi mieć 8-16 znaków, zawierać wielką literę, małą literę, cyfrę oraz znak specjalny \(np\. ! @ # \$\)/i,
-						)
-					}
-				})
+				} else {
+					screen.getByText(
+						/hasło musi mieć 8-16 znaków, zawierać wielką literę, małą literę, cyfrę oraz znak specjalny \(np\. ! @ # \$\)/i,
+					)
+				}
 			})
 		})
 	})
