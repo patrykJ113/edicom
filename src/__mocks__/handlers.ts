@@ -8,4 +8,10 @@ export const handlers = [
 			ctx.json({ message: 'User registered successfully' }),
 		)
 	}),
+	rest.post(`${apiUrl}/auth/login`, (req, res, ctx) => {
+		return res(
+			ctx.status(200),
+			ctx.json({ message: 'Login successful' }),
+		)
+	}),
 ]

@@ -24,27 +24,17 @@ const messagesEnum: MessagesEnum = {
 			logOut: 'options.logOut',
 		},
 	},
-	loginForm: {
+	authForm: {
 		signIn: 'signIn',
 		signUp: 'signUp',
-		title: 'title',
-		titleHint: 'titleHint',
+		createAccount: 'createAccount',
+		logInWith: 'logInWith',
+		registerWith: 'registerWith',
 		rememberMe: 'rememberMe',
 		forgotPassword: 'forgotPassword',
 		orContinueWithEmail: 'orContinueWithEmail',
-		noAccount: 'noAccount',
-		emailRequired: 'emailRequired',
-		emailInvalid: 'emailInvalid',
-		passwordRequired: 'passwordRequired',
-		passwordInvalid: 'passwordInvalid',
-		password: 'password'
-	},
-	registerForm: {
-		signIn: 'signIn',
-		signUp: 'signUp',
-		title: 'title',
-		titleHint: 'titleHint',
 		orWithYoureEmail: 'orWithYoureEmail',
+		noAccount: 'noAccount',
 		haveAnAccount: 'haveAnAccount',
 		nameRequired: 'nameRequired',
 		emailRequired: 'emailRequired',
@@ -52,11 +42,11 @@ const messagesEnum: MessagesEnum = {
 		passwordRequired: 'passwordRequired',
 		passwordInvalid: 'passwordInvalid',
 		name: 'name',
-		password: 'password'
+		password: 'password',
 	},
 	errors: {
-		serverDown: 'serverDown'
-	}
+		serverDown: 'serverDown',
+	},
 }
 
 export default messagesEnum

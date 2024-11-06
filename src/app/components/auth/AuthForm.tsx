@@ -12,11 +12,17 @@ import Spinner from '@components/Spinner'
 import { useTranslations } from 'next-intl'
 import messagesEnum from '@enum/messages'
 import nameSpaceEnum from '@enum/name-space'
+import Checkbox from '@components/inputs/Checkbox'
 
-export default function RegisterForm() {
-	const { registerForm, errors } = messagesEnum
-	const t = useTranslations(nameSpaceEnum.registerForm)
+type Props = {
+	register?: boolean
+}
+
+export default function AuthForm({ register }: Props) {
+	const { authForm, errors } = messagesEnum
+	const t = useTranslations(nameSpaceEnum.authForm)
 	const t_errors = useTranslations(nameSpaceEnum.errors)
+
 	const router = useRouter()
 
 	const [nameError, setNameError] = useState('')
@@ -27,6 +33,7 @@ export default function RegisterForm() {
 	const [loading, setLoading] = useState(false)
 
 	const apiUrl = process.env.NEXT_PUBLIC_API_URL
+	const requestUrl = `${apiUrl}/auth/${register ? 'register' : 'login'}`
 
 	type FormData = {
 		[k: string]: FormDataEntryValue
@@ -36,10 +43,17 @@ export default function RegisterForm() {
 		error: string
 	}
 
+	type Errors = {
+		nameError?: string
+		emailError: string
+		passwordError: string
+	}
+
 	const registerUser = (data: FormData) => {
+
 		setLoading(true)
 		axios
-			.post(`${apiUrl}/auth/register`, data)
+			.post(requestUrl, data)
 			.then(res => {
 				// eslint-disable-next-line no-console
 				console.log(res)
@@ -72,7 +86,7 @@ export default function RegisterForm() {
 
 	const validateName = (name: string) => {
 		if (!firstSubmit) {
-			const error = validateField(name as string, t(registerForm.nameRequired))
+			const error = validateField(name as string, t(authForm.nameRequired))
 			setNameError(error)
 		}
 	}
@@ -81,8 +95,8 @@ export default function RegisterForm() {
 		if (!firstSubmit) {
 			const error = validateField(
 				email as string,
-				t(registerForm.emailRequired),
-				t(registerForm.emailInvalid),
+				t(authForm.emailRequired),
+				t(authForm.emailInvalid),
 				isValidEmail,
 			)
 			setEmailError(error)
@@ -93,8 +107,8 @@ export default function RegisterForm() {
 		if (!firstSubmit) {
 			const error = validateField(
 				password as string,
-				t(registerForm.passwordRequired),
-				t(registerForm.passwordInvalid),
+				t(authForm.passwordRequired),
+				t(authForm.passwordInvalid),
 				isValidPassword,
 			)
 			setPasswordError(error)
@@ -110,25 +124,30 @@ export default function RegisterForm() {
 
 		const { name, email, password } = data
 
-		const errors = {
-			nameError: validateField(name as string, t(registerForm.nameRequired)),
+		const errors: Errors = {
 			emailError: validateField(
 				email as string,
-				t(registerForm.emailRequired),
-				t(registerForm.emailInvalid),
+				t(authForm.emailRequired),
+				t(authForm.emailInvalid),
 				isValidEmail,
 			),
 			passwordError: validateField(
 				password as string,
-				t(registerForm.passwordRequired),
-				t(registerForm.passwordInvalid),
+				t(authForm.passwordRequired),
+				t(authForm.passwordInvalid),
 				isValidPassword,
 			),
 		}
 
+		if (name !== undefined) {
+			errors.nameError = validateField(name as string, t(authForm.nameRequired))
+		}
+
 		const hasErrors = Object.values(errors).some(error => error)
 
-		setNameError(errors.nameError)
+		if (errors.emailError) {
+			setNameError(errors.nameError ?? '')
+		}
 		setEmailError(errors.emailError)
 		setPasswordError(errors.passwordError)
 
@@ -136,6 +155,14 @@ export default function RegisterForm() {
 
 		registerUser(data)
 	}
+
+	const tile = () => (register ? t(authForm.createAccount) : t(authForm.signIn))
+	const tileHint = () =>
+		register ? t(authForm.registerWith) : t(authForm.logInWith)
+	const orWith = () =>
+		register ? t(authForm.orWithYoureEmail) : t(authForm.orContinueWithEmail)
+	const linkText = () => (register ? t(authForm.signIn) : t(authForm.signUp))
+	const submitBtn = () => (register ? t(authForm.signUp) : t(authForm.signIn))
 
 	return (
 		<form
@@ -146,10 +173,10 @@ export default function RegisterForm() {
 			<section className='flex flex-col gap-5'>
 				<section className='flex flex-col gap-[10px]'>
 					<h1 className='text-[26px] leading-8 text-center font-bold'>
-						{t(registerForm.title)}
+						{tile()}
 					</h1>
 					<p className='text-sm leading-5 text-gray-500 text-center'>
-						{t(registerForm.titleHint)}
+						{tileHint()}
 					</p>
 				</section>
 			</section>
@@ -164,18 +191,18 @@ export default function RegisterForm() {
 					{serverError && <Alert>{serverError}</Alert>}
 					<div className='flex items-center gap-2'>
 						<span className='h-[1px] flex-1 bg-gray-200'></span>
-						<span className='text-sm leading-5 text-gray-400'>
-							{t(registerForm.orWithYoureEmail)}
-						</span>
+						<span className='text-sm leading-5 text-gray-400'>{orWith()}</span>
 						<span className='h-[1px] flex-1 bg-gray-200'></span>
 					</div>
 					<section className='grid gap-7'>
-						<Input
-							label={t(registerForm.name)}
-							name='name'
-							error={nameError}
-							validateCb={validateName}
-						/>
+						{register && (
+							<Input
+								label={t(authForm.name)}
+								name='name'
+								error={nameError}
+								validateCb={validateName}
+							/>
+						)}
 						<Input
 							label='E-mail'
 							name='email'
@@ -184,24 +211,32 @@ export default function RegisterForm() {
 							validateCb={validateEmail}
 						/>
 						<Input
-							label={t(registerForm.password)}
+							label={t(authForm.password)}
 							name='password'
 							type='password'
 							error={passwordError}
 							validateCb={validatePassword}
 						/>
 					</section>
+					{!register && (
+						<section className={'flex justify-between mt-[6px]'}>
+							<Checkbox>{t(authForm.rememberMe)}</Checkbox>
+							<span className='text-brand hover:cursor-pointer text-sm leading-5 font-semibold'>
+								{t(authForm.forgotPassword)}
+							</span>
+						</section>
+					)}
 				</section>
 
-				<Button>{t(registerForm.signUp)}</Button>
+				<Button>{submitBtn()}</Button>
 
 				<p className='text-sm leading-5 text-center'>
-					{t(registerForm.haveAnAccount)}
+					{t(authForm.haveAnAccount)}
 					<Link
 						className='text-brand font-semibold hover:text-brand-600 active:text-brand-700'
-						href={'/auth/login'}
+						href={`/auth/${register ? 'login' : 'register'}`}
 					>
-						{t(registerForm.signIn)}
+						{linkText()}
 					</Link>
 				</p>
 				{loading && <Spinner />}

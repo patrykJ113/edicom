@@ -22,35 +22,25 @@ export type Messages = {
 			logOut: string
 		}
 	}
-	loginForm: {
+	authForm: {
 		signIn: string
 		signUp: string
-		title: string
-		titleHint: string
+		createAccount: string
+		logInWith: string
+		registerWith: string
 		rememberMe: string
 		forgotPassword: string
 		orContinueWithEmail: string
-		noAccount: string
-		emailRequired: string
-		emailInvalid: string
-		passwordRequired: string
-		passwordInvalid: string
-		password: string
-	}
-	registerForm: {
-		signIn: string
-		signUp: string
-		title: string
-		titleHint: string
 		orWithYoureEmail: string
+		noAccount: string
 		haveAnAccount: string
 		nameRequired: string
 		emailRequired: string
 		emailInvalid: string
 		passwordRequired: string
 		passwordInvalid: string
-		password: string
 		name: string
+		password: string
 	}
 	errors: {
 		serverDown: string
@@ -81,35 +71,25 @@ export type MessagesEnum = {
 			logOut: 'options.logOut'
 		}
 	}
-	loginForm: {
+	authForm: {
 		signIn: 'signIn'
 		signUp: 'signUp'
-		title: 'title'
-		titleHint: 'titleHint'
+		createAccount: 'createAccount'
+		logInWith: 'logInWith'
+		registerWith: 'registerWith'
 		rememberMe: 'rememberMe'
 		forgotPassword: 'forgotPassword'
 		orContinueWithEmail: 'orContinueWithEmail'
-		noAccount: 'noAccount'
-		emailRequired: 'emailRequired'
-		emailInvalid: 'emailInvalid'
-		passwordRequired: 'passwordRequired'
-		passwordInvalid: 'passwordInvalid'
-		password: 'password'
-	}
-	registerForm: {
-		signIn: 'signIn'
-		signUp: 'signUp'
-		title: 'title'
-		titleHint: 'titleHint'
 		orWithYoureEmail: 'orWithYoureEmail'
+		noAccount: 'noAccount'
 		haveAnAccount: 'haveAnAccount'
 		nameRequired: 'nameRequired'
 		emailRequired: 'emailRequired'
 		emailInvalid: 'emailInvalid'
 		passwordRequired: 'passwordRequired'
 		passwordInvalid: 'passwordInvalid'
-		password: 'password'
 		name: 'name'
+		password: 'password'
 	}
 	errors: {
 		serverDown: 'serverDown'
@@ -120,7 +100,6 @@ export type NameSpaceEnum = {
 	topNav: 'topNav'
 	yourAccountBtn: 'yourAccountBtn'
 	bottomNav: 'bottomNav'
-	loginForm: 'loginForm'
-	registerForm: 'registerForm'
 	errors: 'errors'
+	authForm: 'authForm'
 }

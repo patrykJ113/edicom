@@ -4,9 +4,8 @@ const nameSpaceEnum: NameSpaceEnum = {
 	topNav: 'topNav',
 	bottomNav: 'bottomNav',
 	yourAccountBtn: 'yourAccountBtn',
-	loginForm: 'loginForm',
-	registerForm: 'registerForm',
-	errors: 'errors'
+	errors: 'errors',
+	authForm: 'authForm'
 }
 
 export default nameSpaceEnum
