@@ -41,7 +41,9 @@ describe('RegisterForm', () => {
 
 			const nameHint = screen.queryByText(/name is required/i)
 			const emailRequired = screen.queryByText(/e\-mail is required/i)
-			const emailInvalid = screen.queryByText(/e\-mail is invalid/i)
+			const emailInvalid = screen.queryByText(
+				/Email address has the wrong format/i,
+			)
 			const passwordRequired = screen.queryByText(/password is required/i)
 			const passwordInvalid = screen.queryByText(
 				/password must be 8\-16 characters, include an uppercase letter, lowercase letter, number, and special character \(e\.g\., ! @ # \$\)/i,
@@ -113,7 +115,9 @@ describe('RegisterForm', () => {
 			expect(emailLabel).toHaveClass('bg-red-50 border-red-A400')
 			expect(passwordLabel).toHaveClass('bg-red-50 border-red-A400')
 
-			const emailRequired = screen.queryByText(/e\-mail is invalid/i)
+			const emailRequired = screen.queryByText(
+				/Email address has the wrong format/i,
+			)
 			const passwordRequired = screen.queryByText(
 				/password must be 8\-16 characters, include an uppercase letter, lowercase letter, number, and special character \(e\.g\., ! @ # \$\)/i,
 			)
@@ -163,7 +167,7 @@ describe('RegisterForm', () => {
 			await userEvent.type(email, 'email')
 			await userEvent.type(password, 'password')
 
-			emailHint = screen.queryByText(/e\-mail is invalid/i)
+			emailHint = screen.queryByText(/Email address has the wrong format/i)
 			passwordHint = screen.queryByText(
 				/password must be 8\-16 characters, include an uppercase letter, lowercase letter, number, and special character \(e\.g\., ! @ # \$\)/i,
 			)
@@ -213,10 +217,7 @@ describe('RegisterForm', () => {
 			const errMessage = 'Internal Server Error'
 			server.use(
 				rest.post(`${apiUrl}/auth/register`, (req, res, ctx) => {
-					return res(
-						ctx.status(500),
-						ctx.json({ error: errMessage }),
-					)
+					return res(ctx.status(500), ctx.json({ error: errMessage }))
 				}),
 			)
 			render(await provideTranslations(<RegisterForm />))
@@ -237,7 +238,7 @@ describe('RegisterForm', () => {
 			await userEvent.type(email, 'name@domain.com')
 			await userEvent.type(password, 'Ww@1mwo1kp')
 			await userEvent.click(signInBtn)
-			
+
 			screen.getByText(new RegExp(errMessage, 'i'))
 		})
 
@@ -267,7 +268,9 @@ describe('RegisterForm', () => {
 			await userEvent.type(password, 'Ww@1mwo1kp')
 			await userEvent.click(signInBtn)
 
-			screen.getByText(/Oops! It looks like our servers are down. We're working on getting things back to normal/i)
+			screen.getByText(
+				/Oops! It looks like our servers are down. We're working on getting things back to normal/i,
+			)
 		})
 	})
 
