@@ -28,14 +28,15 @@ const messages: Messages = {
 		signIn: 'Zaloguj się',
 		signUp: 'Zarejestruj się',
 		title: 'Zaloguj się',
-		titleHint: 'Cześć! Dobrze cię znowu widzieć, tęskniliśmy za tobą',
+		titleHint: 'Witamy ponownie! Zaloguj się za pomocą konta społecznościowego',
 		rememberMe: 'Zapamiętaj mnie',
 		forgotPassword: 'Zapomniałeś hasła?',
-		orSignInWith: 'Lub zaloguj się za pomocą',
-		dontHaveAnAccount: 'Nie masz konta? ',
-		emailHint: 'Email jest wymagany',
-		passwordHint:
-			'Hasło musi mieć 8-16 znaków, zawierać wielką literę, małą literę, cyfrę oraz znak specjalny (np. ! @ # $)',
+		orContinueWithEmail: 'lub kontynuuj przez e-mail',
+		noAccount: ' Nie masz konta ? ',
+		emailRequired: 'Adres e-mail jest wymagany',
+		emailInvalid: 'Adres e-mail ma nieprawidłowy format',
+		passwordRequired: 'Hasło jest wymagane',
+		passwordInvalid: `Hasło musi mieć 8-16 znaków, zawierać wielką literę, małą literę, cyfrę oraz znak specjalny (np. ! @ # $)'`,
 		password: 'Hasło',
 	},
 	registerForm: {
@@ -47,7 +48,7 @@ const messages: Messages = {
 		haveAnAccount: 'Masz konto ? ',
 		nameRequired: 'Nazwa jest wymagany',
 		emailRequired: 'Email jest wymagany',
-		emailInvalid: 'Adres e-mail jest nieprawidłowy',
+		emailInvalid: 'Adres e-mail ma nieprawidłowy format',
 		passwordRequired: 'Hasło jest wymagane',
 		passwordInvalid:
 			'Hasło musi mieć 8-16 znaków, zawierać wielką literę, małą literę, cyfrę oraz znak specjalny (np. ! @ # $)',
@@ -55,8 +56,9 @@ const messages: Messages = {
 		password: 'Hasło',
 	},
 	errors: {
-		serverDown: 'Ups! Wygląda na to, że nasze serwery nie działają. Spróbuj ponownie później'
-	}
+		serverDown:
+			'Ups! Wygląda na to, że nasze serwery nie działają. Spróbuj ponownie później',
+	},
 }
 
 export default messages

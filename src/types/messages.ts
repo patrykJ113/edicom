@@ -29,10 +29,12 @@ export type Messages = {
 		titleHint: string
 		rememberMe: string
 		forgotPassword: string
-		orSignInWith: string
-		dontHaveAnAccount: string
-		emailHint: string
-		passwordHint: string
+		orContinueWithEmail: string
+		noAccount: string
+		emailRequired: string
+		emailInvalid: string
+		passwordRequired: string
+		passwordInvalid: string
 		password: string
 	}
 	registerForm: {
@@ -86,10 +88,12 @@ export type MessagesEnum = {
 		titleHint: 'titleHint'
 		rememberMe: 'rememberMe'
 		forgotPassword: 'forgotPassword'
-		orSignInWith: 'orSignInWith'
-		dontHaveAnAccount: 'dontHaveAnAccount'
-		emailHint: 'emailHint'
-		passwordHint: 'passwordHint'
+		orContinueWithEmail: 'orContinueWithEmail'
+		noAccount: 'noAccount'
+		emailRequired: 'emailRequired'
+		emailInvalid: 'emailInvalid'
+		passwordRequired: 'passwordRequired'
+		passwordInvalid: 'passwordInvalid'
 		password: 'password'
 	}
 	registerForm: {

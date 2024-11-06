@@ -31,10 +31,12 @@ const messagesEnum: MessagesEnum = {
 		titleHint: 'titleHint',
 		rememberMe: 'rememberMe',
 		forgotPassword: 'forgotPassword',
-		orSignInWith: 'orSignInWith',
-		dontHaveAnAccount: 'dontHaveAnAccount',
-		emailHint: 'emailHint',
-		passwordHint: 'passwordHint',
+		orContinueWithEmail: 'orContinueWithEmail',
+		noAccount: 'noAccount',
+		emailRequired: 'emailRequired',
+		emailInvalid: 'emailInvalid',
+		passwordRequired: 'passwordRequired',
+		passwordInvalid: 'passwordInvalid',
 		password: 'password'
 	},
 	registerForm: {
