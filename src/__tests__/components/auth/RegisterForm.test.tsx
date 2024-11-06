@@ -3,15 +3,22 @@ import RegisterForm from '@components/auth/RegisterForm'
 import provideTranslations from '@/utils/test/provideTranslations'
 import userEvent from '@testing-library/user-event'
 import testTranslation from '@/utils/test/testTranslation'
+import { useRouter } from '@/i18n/routing'
+import { server } from '@mocks/server'
+import { rest } from 'msw'
+
+const apiUrl = process.env.NEXT_PUBLIC_API_URL
 
 jest.mock('@svg/eye.svg', () => 'svg')
 
 jest.mock('@/i18n/routing', () => ({
-	useRouter: () => ({
-		push: jest.fn(),
-	}),
+	useRouter: jest.fn(),
 	Link: ({ children }: { children: React.ReactNode }) => children,
 }))
+
+const push = jest.fn() as jest.Mock<ReturnType<typeof useRouter>['push']>
+
+;(useRouter as jest.Mock).mockReturnValue({ push })
 
 describe('RegisterForm', () => {
 	describe('Initial rendering', () => {
@@ -178,20 +185,89 @@ describe('RegisterForm', () => {
 	})
 
 	describe('RegisterForm API Integration', () => {
-		it('when all inputs are valid the form should send a request to the server', async () => {
-			render(await provideTranslations(<RegisterForm />))
-		})
-
 		it('User registered successfully', async () => {
 			render(await provideTranslations(<RegisterForm />))
+
+			const signInBtn = screen.getByRole('button', {
+				name: /sign up/i,
+			})
+
+			const name = screen.getByRole('textbox', {
+				name: /name/i,
+			})
+			const email = screen.getByRole('textbox', {
+				name: /e\-mail/i,
+			})
+			const password = screen.getByLabelText(/password/i)
+
+			await userEvent.type(name, 'name')
+			await userEvent.type(email, 'name@domain.com')
+			await userEvent.type(password, 'Ww@1mwo1kp')
+			await userEvent.click(signInBtn)
+
+			expect(push).toHaveBeenCalledTimes(1)
+			expect(push).toHaveBeenCalledWith('/')
 		})
 
 		it('Server Error', async () => {
+			const errMessage = 'Internal Server Error'
+			server.use(
+				rest.post(`${apiUrl}/auth/register`, (req, res, ctx) => {
+					return res(
+						ctx.status(500),
+						ctx.json({ error: errMessage }),
+					)
+				}),
+			)
 			render(await provideTranslations(<RegisterForm />))
+
+			const signInBtn = screen.getByRole('button', {
+				name: /sign up/i,
+			})
+
+			const name = screen.getByRole('textbox', {
+				name: /name/i,
+			})
+			const email = screen.getByRole('textbox', {
+				name: /e\-mail/i,
+			})
+			const password = screen.getByLabelText(/password/i)
+
+			await userEvent.type(name, 'name')
+			await userEvent.type(email, 'name@domain.com')
+			await userEvent.type(password, 'Ww@1mwo1kp')
+			await userEvent.click(signInBtn)
+			
+			screen.getByText(new RegExp(errMessage, 'i'))
 		})
 
 		it('Network Error', async () => {
+			server.use(
+				rest.post(`${apiUrl}/auth/register`, (req, res) => {
+					return res.networkError('')
+				}),
+			)
+
 			render(await provideTranslations(<RegisterForm />))
+
+			const signInBtn = screen.getByRole('button', {
+				name: /sign up/i,
+			})
+
+			const name = screen.getByRole('textbox', {
+				name: /name/i,
+			})
+			const email = screen.getByRole('textbox', {
+				name: /e\-mail/i,
+			})
+			const password = screen.getByLabelText(/password/i)
+
+			await userEvent.type(name, 'name')
+			await userEvent.type(email, 'name@domain.com')
+			await userEvent.type(password, 'Ww@1mwo1kp')
+			await userEvent.click(signInBtn)
+
+			screen.getByText(/Oops! It looks like our servers are down. We're working on getting things back to normal/i)
 		})
 	})
 
