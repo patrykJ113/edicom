@@ -132,6 +132,14 @@ describe('AuthForm', () => {
 			expect(rememberMe).not.toBeInTheDocument()
 			expect(forgotPassword).not.toBeInTheDocument()
 		})
+
+		it('the checkbox is checked by default in the login form', async () => {
+			render(await provideTranslations(<AuthForm />))
+
+			const checkBox = screen.getByRole('checkbox')
+
+			expect(checkBox).toBeChecked()
+		})
 	})
 
 	describe('Validation on first submit', () => {
@@ -154,7 +162,7 @@ describe('AuthForm', () => {
 
 		})
 
-		it('invalid email and password inputs display  error styles and invalid hints for register form', async () => {
+		it('invalid email and password inputs display error styles and invalid hints for register form', async () => {
 			const { container } = render(
 				await provideTranslations(<AuthForm register />),
 			)
@@ -339,7 +347,7 @@ describe('AuthForm', () => {
 			expect(push).toHaveBeenCalledWith('/')
 		})
 
-		it('The Register form handles a server error', async () => {
+		it('The Register displays the alert when a server error occurred', async () => {
 			render(await provideTranslations(<AuthForm register />))
 
 			const responseMsg =
@@ -361,6 +369,7 @@ describe('AuthForm', () => {
 			await userEvent.type(password, 'Ww1@aa1klm1321')
 			await userEvent.click(signUpBtn)
 
+			expect(push).toHaveBeenCalledTimes(0)
 			screen.getByText(responseMsg)
 		})
 
@@ -413,7 +422,7 @@ describe('AuthForm', () => {
 			expect(push).toHaveBeenCalledWith('/')
 		})
 
-		it('Login form handles invalid credentials', async () => {
+		it('Login form displays the alert when a server error occurred', async () => {
 			render(await provideTranslations(<AuthForm />))
 
 			const responseMsg = 'Invalid credentials'
@@ -426,31 +435,6 @@ describe('AuthForm', () => {
 
 			const email = getEmailInput()
 			const password = getPasswordInput()
-
-			const signInBtn = getSingInBtn()
-
-			await userEvent.type(email, 'john@gmail.com')
-			await userEvent.type(password, 'Ww1@aa1klm1321')
-			await userEvent.click(signInBtn)
-
-			expect(push).toHaveBeenCalledTimes(0)
-			screen.getByText(new RegExp(responseMsg, 'i'))
-		})
-
-		it('The login form handles a server error', async () => {
-			render(await provideTranslations(<AuthForm />))
-
-			const responseMsg = 'Something went wrong when Login in on our side'
-
-			server.use(
-				rest.post(`${apiUrl}/auth/login`, (req, res, ctx) => {
-					return res(ctx.status(400), ctx.json({ error: responseMsg }))
-				}),
-			)
-
-			const email = getEmailInput()
-			const password = getPasswordInput()
-
 			const signInBtn = getSingInBtn()
 
 			await userEvent.type(email, 'john@gmail.com')
