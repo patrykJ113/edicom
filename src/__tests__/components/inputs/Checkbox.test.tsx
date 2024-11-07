@@ -8,4 +8,12 @@ describe('CheckBox', () => {
 
 		screen.getByLabelText(new RegExp(label, 'i'))
 	})
+
+	it('the checkbox is checked when the checked propr is provided', () => {
+		render(<Checkbox checked>Check</Checkbox>)
+
+		const checkBox = screen.getByLabelText(new RegExp('Check', 'i'))
+
+		expect(checkBox).toBeChecked()
+	})
 })
