@@ -16,6 +16,54 @@ jest.mock('@/i18n/routing', () => ({
 	Link: ({ children }: { children: React.ReactNode }) => children,
 }))
 
+const getSingUpBtn = () =>
+	screen.getByRole('button', {
+		name: /sign up/i,
+	})
+
+const getSingInBtn = () =>
+	screen.getByRole('button', {
+		name: /sign in/i,
+	})
+
+const getLabels = (container: HTMLElement) => {
+	const labels = Array.from(container.querySelectorAll('label'))
+	return labels
+}
+
+const labelsHaveErrorStyles = (...elements: HTMLElement[]) => {
+	elements.forEach(element => {
+		expect(element).toHaveClass('bg-red-50 border-red-A400')
+	})
+}
+
+const getRequiredNameHint = () => screen.queryByText(/name is required/i)
+
+const getRequiredEmailHint = () => screen.queryByText(/e\-mail is required/i)
+
+const getRequiredPasswordHint = () =>
+	screen.queryByText(/password is required/i)
+
+const getInvalidEmailHint = () =>
+	screen.queryByText(/Email address has the wrong format/i)
+
+const getInvalidPasswordHint = () =>
+	screen.queryByText(
+		/password must be 8\-16 characters, include an uppercase letter, lowercase letter, number, and special character \(e\.g\., ! @ # \$\)/i,
+	)
+
+const getNameInput = () =>
+	screen.getByRole('textbox', {
+		name: /name/i,
+	})
+
+const getEmailInput = () =>
+	screen.getByRole('textbox', {
+		name: /e\-mail/i,
+	})
+
+const getPasswordInput = () => screen.getByLabelText(/password/i)
+
 const push = jest.fn() as jest.Mock<ReturnType<typeof useRouter>['push']>
 
 ;(useRouter as jest.Mock).mockReturnValue({ push })
@@ -33,19 +81,10 @@ describe('AuthForm', () => {
 
 			screen.getByText(/or with you’re email/i)
 
-			screen.getByRole('textbox', {
-				name: /name/i,
-			})
-
-			screen.getByRole('textbox', {
-				name: /e\-mail/i,
-			})
-
-			screen.getByLabelText(/password/i)
-
-			screen.getByRole('button', {
-				name: /sign up/i,
-			})
+			getNameInput()
+			getEmailInput()
+			getPasswordInput()
+			getSingUpBtn()
 
 			screen.getByText(/have an account \?/i)
 
@@ -60,25 +99,17 @@ describe('AuthForm', () => {
 			})
 
 			screen.getByText(/welcome back! log in with your social account/i)
-
 			screen.getByText(/or continue with email/i)
 
-			screen.getByRole('textbox', {
-				name: /e\-mail/i,
-			})
-
-			screen.getByLabelText(/password/i)
+			getEmailInput()
+			getPasswordInput()
 
 			screen.getByText(/remember me/i)
-
 			screen.getByText(/forgot password\?/i)
 
-			screen.getByRole('button', {
-				name: /sign in/i,
-			})
+			getSingInBtn()
 
 			screen.getByText(/have an account \?/i)
-
 			screen.getByText(/sign up/i)
 		})
 
@@ -109,29 +140,18 @@ describe('AuthForm', () => {
 				await provideTranslations(<AuthForm register />),
 			)
 
-			const signUpBtn = screen.getByRole('button', {
-				name: /sign up/i,
-			})
+			const signUpBtn = getSingUpBtn()
 
 			await userEvent.click(signUpBtn)
 
-			const labels = Array.from(container.querySelectorAll('label'))
+			const [nameLabel, emailLabel, passwordLabel] = getLabels(container)
 
-			expect(labels).toHaveLength(3)
+			labelsHaveErrorStyles(nameLabel, emailLabel, passwordLabel)
 
-			const [nameLabel, emailLabel, passwordLabel] = labels
+			getRequiredNameHint()
+			getRequiredEmailHint()
+			getRequiredPasswordHint()
 
-			expect(nameLabel).toHaveClass('bg-red-50 border-red-A400')
-			expect(emailLabel).toHaveClass('bg-red-50 border-red-A400')
-			expect(passwordLabel).toHaveClass('bg-red-50 border-red-A400')
-
-			const nameHint = screen.queryByText(/name is required/i)
-			const emailHint = screen.queryByText(/e\-mail is required/i)
-			const passwordHint = screen.queryByText(/password is required/i)
-
-			expect(nameHint).toBeInTheDocument()
-			expect(emailHint).toBeInTheDocument()
-			expect(passwordHint).toBeInTheDocument()
 		})
 
 		it('invalid email and password inputs display  error styles and invalid hints for register form', async () => {
@@ -139,96 +159,61 @@ describe('AuthForm', () => {
 				await provideTranslations(<AuthForm register />),
 			)
 
-			const email = screen.getByRole('textbox', {
-				name: /e\-mail/i,
-			})
+			const email = getEmailInput()
 
-			const password = screen.getByLabelText(/password/i)
+			const password = getPasswordInput()
 
-			const signUpBtn = screen.getByRole('button', {
-				name: /sign up/i,
-			})
+			const signUpBtn = getSingUpBtn()
 
 			await userEvent.type(email, 'email')
 			await userEvent.type(password, 'password')
 			await userEvent.click(signUpBtn)
 
-			const labels = Array.from(container.querySelectorAll('label'))
+			const [, emailLabel, passwordLabel] = getLabels(container)
 
-			expect(labels).toHaveLength(3)
+			labelsHaveErrorStyles(emailLabel, passwordLabel)
 
-			const [nameLabel, emailLabel, passwordLabel] = labels
+			getInvalidEmailHint()
+			getInvalidPasswordHint()
 
-			expect(emailLabel).toHaveClass('bg-red-50 border-red-A400')
-			expect(passwordLabel).toHaveClass('bg-red-50 border-red-A400')
-
-			const emailHint = screen.queryByText(
-				/Email address has the wrong format/i,
-			)
-			const passwordHint = screen.queryByText(
-				/password must be 8\-16 characters, include an uppercase letter, lowercase letter, number, and special character \(e\.g\., ! @ # \$\)/i,
-			)
-
-			expect(emailHint).toBeInTheDocument()
-			expect(passwordHint).toBeInTheDocument()
 		})
 
 		it('empty email and password inputs display required hints for login form', async () => {
 			const { container } = render(await provideTranslations(<AuthForm />))
 
-			const signInBtn = screen.getByRole('button', {
-				name: /sign in/i,
-			})
+			const signInBtn = getSingInBtn()
 
 			await userEvent.click(signInBtn)
 
-			const labels = Array.from(container.querySelectorAll('label'))
+			const [emailLabel, passwordLabel] = getLabels(container)
 
-			const [emailLabel, passwordLabel] = labels
+			labelsHaveErrorStyles(emailLabel, passwordLabel)
 
-			expect(emailLabel).toHaveClass('bg-red-50 border-red-A400')
-			expect(passwordLabel).toHaveClass('bg-red-50 border-red-A400')
+			screen.queryByText(/e\-mail is required/i)
+			screen.queryByText(/password is required/i)
 
-			const emailHint = screen.queryByText(/e\-mail is required/i)
-			const passwordHint = screen.queryByText(/password is required/i)
-
-			expect(emailHint).toBeInTheDocument()
-			expect(passwordHint).toBeInTheDocument()
 		})
 
 		it('invalid email and password inputs display invalid hints for login form', async () => {
 			const { container } = render(await provideTranslations(<AuthForm />))
 
-			const email = screen.getByRole('textbox', {
-				name: /e\-mail/i,
-			})
+			const email = getEmailInput()
 
-			const password = screen.getByLabelText(/password/i)
+			const password = getPasswordInput()
 
-			const signInBtn = screen.getByRole('button', {
-				name: /sign in/i,
-			})
+			const signInBtn = getSingInBtn()
 
 			await userEvent.type(email, 'email')
 			await userEvent.type(password, 'password')
 			await userEvent.click(signInBtn)
 
-			const labels = Array.from(container.querySelectorAll('label'))
+			const [emailLabel, passwordLabel] = getLabels(container)
 
-			const [emailLabel, passwordLabel] = labels
+			labelsHaveErrorStyles(emailLabel, passwordLabel)
 
-			expect(emailLabel).toHaveClass('bg-red-50 border-red-A400')
-			expect(passwordLabel).toHaveClass('bg-red-50 border-red-A400')
+			getInvalidEmailHint()
+			getInvalidPasswordHint()
 
-			const emailHint = screen.queryByText(
-				/Email address has the wrong format/i,
-			)
-			const passwordHint = screen.queryByText(
-				/password must be 8\-16 characters, include an uppercase letter, lowercase letter, number, and special character \(e\.g\., ! @ # \$\)/i,
-			)
-
-			expect(emailHint).toBeInTheDocument()
-			expect(passwordHint).toBeInTheDocument()
 		})
 	})
 
@@ -238,20 +223,13 @@ describe('AuthForm', () => {
 				await provideTranslations(<AuthForm register />),
 			)
 
-			const signUpBtn = screen.getByRole('button', {
-				name: /sign up/i,
-			})
-
-			const name = screen.getByRole('textbox', {
-				name: /name/i,
-			})
-			const email = screen.getByRole('textbox', {
-				name: /e\-mail/i,
-			})
-			const password = screen.getByLabelText(/password/i)
+			const signUpBtn = getSingUpBtn()
+			const name = getNameInput()
+			const email = getEmailInput()
+			const password = getPasswordInput()
 
 			await userEvent.type(name, 'name')
-			await userEvent.type(email, 'name')
+			await userEvent.type(email, 'email')
 			await userEvent.type(password, 'password')
 			await userEvent.click(signUpBtn)
 
@@ -259,23 +237,14 @@ describe('AuthForm', () => {
 			await userEvent.clear(email)
 			await userEvent.clear(password)
 
-			const labels = Array.from(container.querySelectorAll('label'))
+			const [nameLabel, emailLabel, passwordLabel] = getLabels(container)
 
-			expect(labels).toHaveLength(3)
+			labelsHaveErrorStyles(nameLabel, emailLabel, passwordLabel)
 
-			const [nameLabel, emailLabel, passwordLabel] = labels
+			getRequiredNameHint()
+			getRequiredEmailHint()
+			getRequiredPasswordHint()
 
-			expect(nameLabel).toHaveClass('bg-red-50 border-red-A400')
-			expect(emailLabel).toHaveClass('bg-red-50 border-red-A400')
-			expect(passwordLabel).toHaveClass('bg-red-50 border-red-A400')
-
-			const nameHint = screen.queryByText(/name is required/i)
-			const emailHint = screen.queryByText(/e\-mail is required/i)
-			const passwordHint = screen.queryByText(/password is required/i)
-
-			expect(nameHint).toBeInTheDocument()
-			expect(emailHint).toBeInTheDocument()
-			expect(passwordHint).toBeInTheDocument()
 		})
 
 		it('email and password inputs display error styles and the invalid hints for register form on second submit', async () => {
@@ -283,104 +252,69 @@ describe('AuthForm', () => {
 				await provideTranslations(<AuthForm register />),
 			)
 
-			const signUpBtn = screen.getByRole('button', {
-				name: /sign up/i,
-			})
+			const signUpBtn = getSingUpBtn()
 
-			const email = screen.getByRole('textbox', {
-				name: /e\-mail/i,
-			})
-			const password = screen.getByLabelText(/password/i)
+			const email = getEmailInput()
+			const password = getPasswordInput()
 
 			await userEvent.click(signUpBtn)
 
-			await userEvent.type(email, 'name')
+			await userEvent.type(email, 'email')
 			await userEvent.type(password, 'password')
 
-			const labels = Array.from(container.querySelectorAll('label'))
+			const [, emailLabel, passwordLabel] = getLabels(container)
 
-			const [emailLabel, passwordLabel] = labels
+			labelsHaveErrorStyles(emailLabel, passwordLabel)
 
-			expect(emailLabel).toHaveClass('bg-red-50 border-red-A400')
-			expect(passwordLabel).toHaveClass('bg-red-50 border-red-A400')
+			getInvalidEmailHint()
+			getInvalidPasswordHint()
 
-			const emailHint = screen.queryByText(
-				/Email address has the wrong format/i,
-			)
-			const passwordHint = screen.queryByText(
-				/password must be 8\-16 characters, include an uppercase letter, lowercase letter, number, and special character \(e\.g\., ! @ # \$\)/i,
-			)
-
-			expect(emailHint).toBeInTheDocument()
-			expect(passwordHint).toBeInTheDocument()
 		})
 
 		it('email and password inputs display error styles and the required hints for login form on second submit', async () => {
 			const { container } = render(await provideTranslations(<AuthForm />))
 
-			const signInBtn = screen.getByRole('button', {
-				name: /sign in/i,
-			})
+			const signInBtn = getSingInBtn()
 
-			const email = screen.getByRole('textbox', {
-				name: /e\-mail/i,
-			})
-			const password = screen.getByLabelText(/password/i)
+			const email = getEmailInput()
+			const password = getPasswordInput()
 
-			await userEvent.type(email, 'name')
+			await userEvent.type(email, 'email')
 			await userEvent.type(password, 'password')
 			await userEvent.click(signInBtn)
 
 			await userEvent.clear(email)
 			await userEvent.clear(password)
 
-			const labels = Array.from(container.querySelectorAll('label'))
+			const [emailLabel, passwordLabel] = getLabels(container)
 
-			const [emailLabel, passwordLabel] = labels
+			labelsHaveErrorStyles(emailLabel, passwordLabel)
 
-			expect(emailLabel).toHaveClass('bg-red-50 border-red-A400')
-			expect(passwordLabel).toHaveClass('bg-red-50 border-red-A400')
+			getRequiredEmailHint()
+			getRequiredPasswordHint()
 
-			const emailHint = screen.queryByText(/e\-mail is required/i)
-			const passwordHint = screen.queryByText(/password is required/i)
-
-			expect(emailHint).toBeInTheDocument()
-			expect(passwordHint).toBeInTheDocument()
 		})
 
 		it('email and password inputs display error styles and the invalid hints for login form on second submit', async () => {
 			const { container } = render(await provideTranslations(<AuthForm />))
 
-			const signInBtn = screen.getByRole('button', {
-				name: /sign in/i,
-			})
+			const signInBtn = getSingInBtn()
 
-			const email = screen.getByRole('textbox', {
-				name: /e\-mail/i,
-			})
-			const password = screen.getByLabelText(/password/i)
+			const email = getEmailInput()
+			const password = getPasswordInput()
 
 			await userEvent.click(signInBtn)
 
-			await userEvent.type(email, 'name')
+			await userEvent.type(email, 'email')
 			await userEvent.type(password, 'password')
 
-			const labels = Array.from(container.querySelectorAll('label'))
+			const [emailLabel, passwordLabel] = getLabels(container)
 
-			const [emailLabel, passwordLabel] = labels
+			labelsHaveErrorStyles(emailLabel, passwordLabel)
 
-			expect(emailLabel).toHaveClass('bg-red-50 border-red-A400')
-			expect(passwordLabel).toHaveClass('bg-red-50 border-red-A400')
+			getInvalidEmailHint()
+			getInvalidPasswordHint()
 
-			const emailHint = screen.queryByText(
-				/Email address has the wrong format/i,
-			)
-			const passwordHint = screen.queryByText(
-				/password must be 8\-16 characters, include an uppercase letter, lowercase letter, number, and special character \(e\.g\., ! @ # \$\)/i,
-			)
-
-			expect(emailHint).toBeInTheDocument()
-			expect(passwordHint).toBeInTheDocument()
 		})
 	})
 
@@ -388,19 +322,13 @@ describe('AuthForm', () => {
 		it('Register form creates user successful', async () => {
 			render(await provideTranslations(<AuthForm register />))
 
-			const name = screen.getByRole('textbox', {
-				name: /name/i,
-			})
+			const name = getNameInput()
 
-			const email = screen.getByRole('textbox', {
-				name: /e\-mail/i,
-			})
+			const email = getEmailInput()
 
-			const password = screen.getByLabelText(/password/i)
+			const password = getPasswordInput()
 
-			const signUpBtn = screen.getByRole('button', {
-				name: /sign up/i,
-			})
+			const signUpBtn = getSingUpBtn()
 
 			await userEvent.type(name, 'name')
 			await userEvent.type(email, 'john@gmail.com')
@@ -423,19 +351,10 @@ describe('AuthForm', () => {
 				}),
 			)
 
-			const name = screen.getByRole('textbox', {
-				name: /name/i,
-			})
-
-			const email = screen.getByRole('textbox', {
-				name: /e\-mail/i,
-			})
-
-			const password = screen.getByLabelText(/password/i)
-
-			const signUpBtn = screen.getByRole('button', {
-				name: /sign up/i,
-			})
+			const name = getNameInput()
+			const email = getEmailInput()
+			const password = getPasswordInput()
+			const signUpBtn = getSingUpBtn()
 
 			await userEvent.type(name, 'name')
 			await userEvent.type(email, 'john@gmail.com')
@@ -454,19 +373,10 @@ describe('AuthForm', () => {
 				}),
 			)
 
-			const name = screen.getByRole('textbox', {
-				name: /name/i,
-			})
-
-			const email = screen.getByRole('textbox', {
-				name: /e\-mail/i,
-			})
-
-			const password = screen.getByLabelText(/password/i)
-
-			const signUpBtn = screen.getByRole('button', {
-				name: /sign up/i,
-			})
+			const name = getNameInput()
+			const email = getEmailInput()
+			const password = getPasswordInput()
+			const signUpBtn = getSingUpBtn()
 
 			await userEvent.type(name, 'name')
 			await userEvent.type(email, 'john@gmail.com')
@@ -490,15 +400,10 @@ describe('AuthForm', () => {
 				}),
 			)
 
-			const email = screen.getByRole('textbox', {
-				name: /e\-mail/i,
-			})
+			const email = getEmailInput()
+			const password = getPasswordInput()
 
-			const password = screen.getByLabelText(/password/i)
-
-			const signInBtn = screen.getByRole('button', {
-				name: /sign in/i,
-			})
+			const signInBtn = getSingInBtn()
 
 			await userEvent.type(email, 'john@gmail.com')
 			await userEvent.type(password, 'Ww1@aa1klm1321')
@@ -519,15 +424,10 @@ describe('AuthForm', () => {
 				}),
 			)
 
-			const email = screen.getByRole('textbox', {
-				name: /e\-mail/i,
-			})
+			const email = getEmailInput()
+			const password = getPasswordInput()
 
-			const password = screen.getByLabelText(/password/i)
-
-			const signInBtn = screen.getByRole('button', {
-				name: /sign in/i,
-			})
+			const signInBtn = getSingInBtn()
 
 			await userEvent.type(email, 'john@gmail.com')
 			await userEvent.type(password, 'Ww1@aa1klm1321')
@@ -548,15 +448,10 @@ describe('AuthForm', () => {
 				}),
 			)
 
-			const email = screen.getByRole('textbox', {
-				name: /e\-mail/i,
-			})
+			const email = getEmailInput()
+			const password = getPasswordInput()
 
-			const password = screen.getByLabelText(/password/i)
-
-			const signInBtn = screen.getByRole('button', {
-				name: /sign in/i,
-			})
+			const signInBtn = getSingInBtn()
 
 			await userEvent.type(email, 'john@gmail.com')
 			await userEvent.type(password, 'Ww1@aa1klm1321')
@@ -575,15 +470,10 @@ describe('AuthForm', () => {
 				}),
 			)
 
-			const email = screen.getByRole('textbox', {
-				name: /e\-mail/i,
-			})
+			const email = getEmailInput()
+			const password = getPasswordInput()
 
-			const password = screen.getByLabelText(/password/i)
-
-			const signUpBtn = screen.getByRole('button', {
-				name: /sign in/i,
-			})
+			const signUpBtn = getSingInBtn()
 
 			await userEvent.type(email, 'john@gmail.com')
 			await userEvent.type(password, 'Ww1@aa1klm1321')
@@ -669,9 +559,7 @@ describe('AuthForm', () => {
 					name: new RegExp(authForm.signUp, 'i'),
 				})
 
-				const email = screen.getByRole('textbox', {
-					name: /e\-mail/i,
-				})
+				const email = getEmailInput()
 
 				const password = screen.getByLabelText(
 					new RegExp(authForm.password, 'i'),
@@ -714,9 +602,7 @@ describe('AuthForm', () => {
 					name: new RegExp(authForm.signIn, 'i'),
 				})
 
-				const email = screen.getByRole('textbox', {
-					name: /e\-mail/i,
-				})
+				const email = getEmailInput()
 				const password = screen.getByLabelText(
 					new RegExp(authForm.password, 'i'),
 				)
