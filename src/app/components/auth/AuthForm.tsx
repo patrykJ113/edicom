@@ -220,7 +220,7 @@ export default function AuthForm({ register }: Props) {
 					</section>
 					{!register && (
 						<section className={'flex justify-between mt-[6px]'}>
-							<Checkbox>{t(authForm.rememberMe)}</Checkbox>
+							<Checkbox checked>{t(authForm.rememberMe)}</Checkbox>
 							<span className='text-brand hover:cursor-pointer text-sm leading-5 font-semibold'>
 								{t(authForm.forgotPassword)}
 							</span>
