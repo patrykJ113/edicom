@@ -6,6 +6,7 @@ import OAuthButton from '@components/buttons/OAuthButton'
 import Input from '@components/inputs/Input'
 import Button from '@components/buttons/Button'
 import { Link, useRouter } from '@/i18n/routing'
+import { useLocale } from 'next-intl'
 import Alert from '@components/Alert'
 import Spinner from '@components/Spinner'
 
@@ -24,6 +25,7 @@ export default function AuthForm({ register }: Props) {
 	const t_errors = useTranslations(nameSpaceEnum.errors)
 
 	const router = useRouter()
+	const locale = useLocale()
 
 	const [nameError, setNameError] = useState('')
 	const [passwordError, setPasswordError] = useState('')
@@ -50,10 +52,10 @@ export default function AuthForm({ register }: Props) {
 	}
 
 	const handleAuthRequest = (data: FormData) => {
-
 		setLoading(true)
+		
 		axios
-			.post(requestUrl, data)
+			.post(`${requestUrl}?lang=${locale}`, data)
 			.then(res => {
 				// eslint-disable-next-line no-console
 				console.log(res)
