@@ -49,7 +49,7 @@ export default function AuthForm({ register }: Props) {
 		passwordError: string
 	}
 
-	const registerUser = (data: FormData) => {
+	const handleAuthRequest = (data: FormData) => {
 
 		setLoading(true)
 		axios
@@ -153,7 +153,7 @@ export default function AuthForm({ register }: Props) {
 
 		if (hasErrors) return
 
-		registerUser(data)
+		handleAuthRequest(data)
 	}
 
 	const tile = () => (register ? t(authForm.createAccount) : t(authForm.signIn))
