@@ -14,6 +14,7 @@ const config: Config = {
 		'^@messages/(.*)$': '<rootDir>/src/messages/$1',
 		'^@components/(.*)$': '<rootDir>/src/app/components/$1',
 		'^@utils/(.*)$': '<rootDir>/src/utils/$1',
+		'^@state/(.*)$': '<rootDir>/src/state/$1'
 	},
 }
 

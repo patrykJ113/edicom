@@ -1,5 +1,6 @@
 import { Messages } from '@/types/messages'
 import { NextIntlClientProvider } from 'next-intl'
+import ReduxProvider from '@components/ReduxProvider'
 
 async function provideTranslations(
 	el: JSX.Element,
@@ -11,9 +12,11 @@ async function provideTranslations(
 	}
 
 	return (
-		<NextIntlClientProvider messages={messages} locale={language}>
-			{el}
-		</NextIntlClientProvider>
+		<ReduxProvider>
+			<NextIntlClientProvider messages={messages} locale={language}>
+				{el}
+			</NextIntlClientProvider>
+		</ReduxProvider>
 	)
 }
 

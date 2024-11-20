@@ -24,7 +24,8 @@
 			"@enum/*": ["./src/enum/*"],
 			"@svg/*": ["./src/assets/svg/*"],
 			"@utils/*": ["./src/utils/*"],
-			"@mocks/*": ["./src/__mocks__/*"]
+			"@mocks/*": ["./src/__mocks__/*"],
+			"@state/*": ["./src/state/*"]
 		}
 	},
 	"include": [

@@ -159,7 +159,6 @@ describe('AuthForm', () => {
 			getRequiredNameHint()
 			getRequiredEmailHint()
 			getRequiredPasswordHint()
-
 		})
 
 		it('invalid email and password inputs display error styles and invalid hints for register form', async () => {
@@ -183,7 +182,6 @@ describe('AuthForm', () => {
 
 			getInvalidEmailHint()
 			getInvalidPasswordHint()
-
 		})
 
 		it('empty email and password inputs display required hints for login form', async () => {
@@ -199,7 +197,6 @@ describe('AuthForm', () => {
 
 			screen.queryByText(/e\-mail is required/i)
 			screen.queryByText(/password is required/i)
-
 		})
 
 		it('invalid email and password inputs display invalid hints for login form', async () => {
@@ -221,7 +218,6 @@ describe('AuthForm', () => {
 
 			getInvalidEmailHint()
 			getInvalidPasswordHint()
-
 		})
 	})
 
@@ -252,7 +248,6 @@ describe('AuthForm', () => {
 			getRequiredNameHint()
 			getRequiredEmailHint()
 			getRequiredPasswordHint()
-
 		})
 
 		it('email and password inputs display error styles and the invalid hints for register form on second submit', async () => {
@@ -276,7 +271,6 @@ describe('AuthForm', () => {
 
 			getInvalidEmailHint()
 			getInvalidPasswordHint()
-
 		})
 
 		it('email and password inputs display error styles and the required hints for login form on second submit', async () => {
@@ -300,7 +294,6 @@ describe('AuthForm', () => {
 
 			getRequiredEmailHint()
 			getRequiredPasswordHint()
-
 		})
 
 		it('email and password inputs display error styles and the invalid hints for login form on second submit', async () => {
@@ -322,7 +315,6 @@ describe('AuthForm', () => {
 
 			getInvalidEmailHint()
 			getInvalidPasswordHint()
-
 		})
 	})
 

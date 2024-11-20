@@ -3,6 +3,7 @@ import '../globals.css'
 import { Roboto } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
+import ReduxProvider from '@components/ReduxProvider'
 
 export const metadata: Metadata = {
 	title: 'Edicom',
@@ -26,9 +27,11 @@ export default async function RootLayout({
 	return (
 		<html lang={locale}>
 			<body className={`${roboto.className} bg-page`}>
-				<NextIntlClientProvider messages={messages}>
-					{children}
-				</NextIntlClientProvider>
+				<ReduxProvider>
+					<NextIntlClientProvider messages={messages}>
+						{children}
+					</NextIntlClientProvider>
+				</ReduxProvider>
 			</body>
 		</html>
 	)
