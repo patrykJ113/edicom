@@ -1,4 +1,24 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {};
+import createNextIntlPlugin from 'next-intl/plugin'
 
-export default nextConfig;
+const withNextIntl = createNextIntlPlugin()
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+	webpack(config) {
+		config.module.rules.push({
+			test: /\.svg$/,
+			issuer: /\.(js|ts)x?$/,
+			use: ['@svgr/webpack'],
+		})
+
+		config.module.rules.push({
+			test: /\.svg$/,
+			issuer: /\.css$/,
+			type: 'asset/resource',
+		})
+
+		return config
+	},
+}
+
+export default withNextIntl(nextConfig)

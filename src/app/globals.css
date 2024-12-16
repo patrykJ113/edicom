@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+	.grid-layout {
+		@apply mx-4 grid grid-cols-4 gap-x-4;
+		@apply sm:mx-8 sm:grid-cols-8;
+		@apply lg:mx-6 lg:grid-cols-12 lg:gap-x-6;
+		@apply xl:mx-50;
+		@apply 2xl:grid-cols-12-72 2xl:justify-center;
+	}
+
+	.triangle {
+		@apply before:block before:h-5 before:w-5 before:bg-white before:content-[''];
+		@apply before:absolute before:right-1/2 before:top-[-18px] before:translate-x-1/2;
+		@apply before:-z-10 before:rotate-45;
+		@apply before:border-t before:border-t-gray-200;
+		@apply before:border-l before:border-l-gray-200;
+	}
+
+	body:has(.auth-bg) {
+		@apply bg-brand-100
+	}
+}
