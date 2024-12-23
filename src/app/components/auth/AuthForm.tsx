@@ -15,7 +15,7 @@ import messagesEnum from '@enum/messages'
 import nameSpaceEnum from '@enum/name-space'
 import Checkbox from '@components/inputs/Checkbox'
 
-import { useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux'
 import { setToken } from '@state/token/slice'
 
 type Props = {
@@ -29,7 +29,7 @@ export default function AuthForm({ register }: Props) {
 
 	const router = useRouter()
 	const locale = useLocale()
-	const dispatch = useDispatch();
+	const dispatch = useDispatch()
 
 	const [nameError, setNameError] = useState('')
 	const [passwordError, setPasswordError] = useState('')
@@ -59,11 +59,13 @@ export default function AuthForm({ register }: Props) {
 		setLoading(true)
 
 		axios
-			.post(`${requestUrl}?lang=${locale}`, data)
+			.post(`${requestUrl}?lang=${locale}`, data, {
+				withCredentials: true,
+			})
 			.then(res => {
 				// eslint-disable-next-line no-console
 				console.log(res)
-				const token = res.headers['authorization'];
+				const token = res.headers['authorization']
 
 				if (token && token.startsWith('Bearer ')) {
 					const accessToken = token.slice(7)
