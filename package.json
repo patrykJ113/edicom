@@ -2,7 +2,7 @@
 	"name": "edicom",
 	"version": "0.1.0",
 	"private": true,
-  "type": "module",
+	"type": "module",
 	"scripts": {
 		"dev": "node server.js",
 		"build": "next build",
@@ -16,6 +16,7 @@
 		"@svgr/webpack": "^8.1.0",
 		"@testing-library/user-event": "^14.5.2",
 		"axios": "^1.7.7",
+		"jwt-decode": "^4.0.0",
 		"next": "14.2.13",
 		"next-intl": "^3.21.1",
 		"prettier-plugin-classnames": "^0.7.3",
