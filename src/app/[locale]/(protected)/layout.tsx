@@ -7,6 +7,7 @@ import { setUser } from '@state/user/slice'
 import { jwtDecode } from 'jwt-decode'
 import { RootState } from '@state/store'
 import axios from 'axios'
+import { useRouter } from '@/i18n/routing'
 
 export default function RootLayout({
 	children,
@@ -16,29 +17,34 @@ export default function RootLayout({
 	const accessToken = useSelector((state: RootState) => state.auth.accessToken)
 	const dispatch = useDispatch()
 	const hasRun = useRef(false)
+	const router = useRouter()
 
 	useEffect(() => {
 		if (hasRun.current) return
 
 		hasRun.current = true
-
-		if (accessToken) return
-
 		const apiBaseUrl = process.env.NEXT_PUBLIC_API_URL
 
 		axios
 			.post(
-				`${apiBaseUrl}/auth/refresh`,
+				`${apiBaseUrl}/auth/verify`,
 				{},
 				{
 					withCredentials: true,
+					headers: {
+						Authorization: `Bearer ${accessToken}`,
+					},
 				},
 			)
 			.then(res => {
 				const bearerToken = res.headers.authorization
+
+				if (!bearerToken) return
+
 				const newAccessToken = bearerToken.slice(7)
 				const decoded: { name: string; sub: string; email: string } =
 					jwtDecode(newAccessToken)
+
 				dispatch(
 					setUser({
 						id: decoded.sub,
@@ -48,9 +54,8 @@ export default function RootLayout({
 				)
 				dispatch(setToken(newAccessToken))
 			})
-			.catch(err => {
-				// eslint-disable-next-line no-console
-				console.log(err)
+			.catch(() => {
+				router.push('auth/login')
 			})
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [])
