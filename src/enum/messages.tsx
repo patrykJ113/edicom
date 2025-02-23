@@ -14,7 +14,6 @@ const messagesEnum: MessagesEnum = {
 		account: 'account',
 	},
 	yourAccountBtn: {
-		btnLabel: 'btnLabel',
 		options: {
 			listings: 'options.listings',
 			messages: 'options.messages',
