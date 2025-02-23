@@ -5,9 +5,9 @@ import provideTranslations from '@/utils/test/provideTranslations'
 
 describe('YourAccountBtn', () => {
 	it('YourAccountBtn toggles dropdown on click', async () => {
-		render(await provideTranslations(<YourAccountBtn />))
+		render(await provideTranslations(<YourAccountBtn label='click' />))
 		const btn = screen.getByRole('button', {
-			name: /you're account/i,
+			name: /click/i,
 		})
 
 		const dropDown = screen.getByRole('article')
@@ -21,7 +21,7 @@ describe('YourAccountBtn', () => {
 	})
 
 	it('Dropdown has the correct amount of items', async () => {
-		render(await provideTranslations(<YourAccountBtn />))
+		render(await provideTranslations(<YourAccountBtn label='click' />))
 
 		const listItems = screen.getAllByRole('listitem')
 
@@ -29,34 +29,37 @@ describe('YourAccountBtn', () => {
 	})
 
 	it('YourAccountBtn renders correct language translations', async () => {
-		await testTranslation(<YourAccountBtn />, ({ yourAccountBtn }) => {
-			screen.getByRole('button', {
-				name: new RegExp(yourAccountBtn.btnLabel, 'i'),
-			})
+		await testTranslation(
+			<YourAccountBtn label='click' />,
+			({ yourAccountBtn }) => {
+				screen.getByRole('button', {
+					name: new RegExp('click', 'i'),
+				})
 
-			screen.getByText(new RegExp(yourAccountBtn.options.listings, 'i'), {
-				selector: 'li',
-			})
+				screen.getByText(new RegExp(yourAccountBtn.options.listings, 'i'), {
+					selector: 'li',
+				})
 
-			screen.getByText(new RegExp(yourAccountBtn.options.messages, 'i'), {
-				selector: 'li',
-			})
+				screen.getByText(new RegExp(yourAccountBtn.options.messages, 'i'), {
+					selector: 'li',
+				})
 
-			screen.getByText(new RegExp(yourAccountBtn.options.payments, 'i'), {
-				selector: 'li',
-			})
+				screen.getByText(new RegExp(yourAccountBtn.options.payments, 'i'), {
+					selector: 'li',
+				})
 
-			screen.getByText(new RegExp(yourAccountBtn.options.settings, 'i'), {
-				selector: 'li',
-			})
+				screen.getByText(new RegExp(yourAccountBtn.options.settings, 'i'), {
+					selector: 'li',
+				})
 
-			screen.getByText(new RegExp(yourAccountBtn.options.followed, 'i'), {
-				selector: 'li',
-			})
+				screen.getByText(new RegExp(yourAccountBtn.options.followed, 'i'), {
+					selector: 'li',
+				})
 
-			screen.getByText(new RegExp(yourAccountBtn.options.logOut, 'i'), {
-				selector: 'li',
-			})
-		})
+				screen.getByText(new RegExp(yourAccountBtn.options.logOut, 'i'), {
+					selector: 'li',
+				})
+			},
+		)
 	})
 })

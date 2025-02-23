@@ -14,7 +14,6 @@ const messages: Messages = {
 		account: 'Konto',
 	},
 	yourAccountBtn: {
-		btnLabel: 'Twoje Konto',
 		options: {
 			listings: 'Ogłoszenia',
 			messages: 'Wiadmości',

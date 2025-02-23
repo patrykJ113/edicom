@@ -6,7 +6,11 @@ import { useTranslations } from 'next-intl'
 import nameSpaceEnum from '@enum/name-space'
 import messagesEnum from '@enum/messages'
 
-export default function YourAccountBtn() {
+type Props = {
+	label: string
+}
+
+export default function YourAccountBtn({ label }: Props) {
 	const t = useTranslations(nameSpaceEnum.yourAccountBtn)
 	const [opened, setOpened] = useState(false)
 	const btnRef = useRef<HTMLDivElement | null>(null)
@@ -48,7 +52,7 @@ export default function YourAccountBtn() {
 				className='text-base text-gray-500 py-3 hover:text-gray-700 active:text-gray-900'
 				onClick={toggleDropDown}
 			>
-				{t('btnLabel')}
+				{label}
 			</button>
 			<DropDown options={options} opened={opened} />
 		</div>

@@ -70,6 +70,8 @@ export default function AuthForm({ register }: Props) {
 				if (token && token.startsWith('Bearer ')) {
 					const accessToken = token.slice(7)
 					dispatch(setToken(accessToken))
+				} else {
+					// do something if the access token is not added 
 				}
 
 				router.push('/')

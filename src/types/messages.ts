@@ -12,7 +12,6 @@ export type Messages = {
 		account: string
 	}
 	yourAccountBtn: {
-		btnLabel: string
 		options: {
 			listings: string
 			messages: string
@@ -61,7 +60,6 @@ export type MessagesEnum = {
 		account: 'account'
 	}
 	yourAccountBtn: {
-		btnLabel: 'btnLabel'
 		options: {
 			listings: 'options.listings'
 			messages: 'options.messages'
