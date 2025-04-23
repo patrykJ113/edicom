@@ -1,7 +1,7 @@
 import BottomNav from '@components/navigation/BottomNav'
 import { render, screen, fireEvent } from '@testing-library/react'
-import provideTranslations from '@/utils/test/provideTranslations'
-import testTranslation from '@/utils/test/testTranslation'
+import provideTranslations from '@/app/components/provideTranslations'
+import testTranslation from '@/app/components/testTranslation'
 
 jest.mock('@svg/home.svg', () => 'svg')
 

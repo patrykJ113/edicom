@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react'
-import provideTranslations from '@utils/test/provideTranslations'
+import provideTranslations from '@/app/components/provideTranslations'
 import { Messages } from '@/types/i18n/messages'
 
 type CheckTranslation = (messages: Messages) => void

@@ -1,9 +1,9 @@
 import { screen, render } from '@testing-library/react'
 import AuthForm from '@components/auth/AuthForm'
-import provideTranslations from '@utils/test/provideTranslations'
+import provideTranslations from '@/app/components/provideTranslations'
 import { useRouter } from '@/i18n/routing'
 import userEvent from '@testing-library/user-event'
-import testTranslation from '@utils/test/testTranslation'
+import testTranslation from '@/app/components/testTranslation'
 import { server } from '@mocks/server'
 import { rest } from 'msw'
 

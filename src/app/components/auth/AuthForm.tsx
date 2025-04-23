@@ -1,5 +1,5 @@
 'use client'
-import { isValidPassword, isValidEmail } from '@utils/auth/validate'
+import { isValidPassword, isValidEmail } from '@/utils/validate'
 import axios, { AxiosError } from 'axios'
 import { useState } from 'react'
 import OAuthButton from '@components/buttons/OAuthButton'

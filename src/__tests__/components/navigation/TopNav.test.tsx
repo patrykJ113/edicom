@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import TopNav from '@/app/components/navigation/TopNav'
-import provideTranslations from '@/utils/test/provideTranslations'
-import testTranslation from '@/utils/test/testTranslation'
+import provideTranslations from '@/app/components/provideTranslations'
+import testTranslation from '@/app/components/testTranslation'
 
 describe('TopNav', () => {
 	it('Elements in TopNav are displayed correctly', async () => {

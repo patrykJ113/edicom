@@ -1,7 +1,7 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import YourAccountBtn from '@/app/components/buttons/YourAccountBtn'
-import testTranslation from '@/utils/test/testTranslation'
-import provideTranslations from '@/utils/test/provideTranslations'
+import testTranslation from '@/app/components/testTranslation'
+import provideTranslations from '@/app/components/provideTranslations'
 
 describe('YourAccountBtn', () => {
 	it('YourAccountBtn toggles dropdown on click', async () => {
