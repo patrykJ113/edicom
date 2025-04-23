@@ -1,6 +1,6 @@
-import { NameSpaceEnum } from '../types/messages'
+import { NameSpaces } from '@typings/i18n/nameSpaces'
 
-const nameSpaceEnum: NameSpaceEnum = {
+const nameSpaces: NameSpaces = {
 	topNav: 'topNav',
 	bottomNav: 'bottomNav',
 	yourAccountBtn: 'yourAccountBtn',
@@ -8,4 +8,4 @@ const nameSpaceEnum: NameSpaceEnum = {
 	authForm: 'authForm'
 }
 
-export default nameSpaceEnum
+export default nameSpaces

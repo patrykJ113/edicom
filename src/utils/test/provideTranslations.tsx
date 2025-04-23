@@ -1,4 +1,4 @@
-import { Messages } from '@/types/messages'
+import { Messages } from '@/types/i18n/messages'
 import { NextIntlClientProvider } from 'next-intl'
 import ReduxProvider from '@components/ReduxProvider'
 

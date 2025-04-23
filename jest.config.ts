@@ -14,7 +14,10 @@ const config: Config = {
 		'^@messages/(.*)$': '<rootDir>/src/messages/$1',
 		'^@components/(.*)$': '<rootDir>/src/app/components/$1',
 		'^@utils/(.*)$': '<rootDir>/src/utils/$1',
-		'^@state/(.*)$': '<rootDir>/src/state/$1'
+		'^@state/(.*)$': '<rootDir>/src/state/$1',
+		'^@typings/(.*)$': '<rootDir>/src/types/$1',
+		'^@i18n/(.*)$': '<rootDir>/src/i18n/$1',
+		
 	},
 }
 

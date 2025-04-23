@@ -1,6 +1,6 @@
-import { MessagesEnum } from '../types/messages'
+import { Keys } from "@typings/i18n/keys"
 
-const messagesEnum: MessagesEnum = {
+const keys: Keys = {
 	topNav: {
 		register: 'register',
 		logIn: 'logIn',
@@ -48,4 +48,4 @@ const messagesEnum: MessagesEnum = {
 	},
 }
 
-export default messagesEnum
+export default keys

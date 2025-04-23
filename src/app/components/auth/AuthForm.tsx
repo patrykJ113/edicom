@@ -11,8 +11,8 @@ import Alert from '@components/Alert'
 import Spinner from '@components/Spinner'
 
 import { useTranslations } from 'next-intl'
-import messagesEnum from '@enum/messages'
-import nameSpaceEnum from '@enum/name-space'
+import keys from '@i18n/messages'
+import nameSpaces from '@i18n/nameSpace'
 import Checkbox from '@components/inputs/Checkbox'
 
 import { useDispatch } from 'react-redux'
@@ -23,9 +23,9 @@ type Props = {
 }
 
 export default function AuthForm({ register }: Props) {
-	const { authForm, errors } = messagesEnum
-	const t = useTranslations(nameSpaceEnum.authForm)
-	const t_errors = useTranslations(nameSpaceEnum.errors)
+	const { authForm, errors } = keys
+	const t = useTranslations(nameSpaces.authForm)
+	const t_errors = useTranslations(nameSpaces.errors)
 
 	const router = useRouter()
 	const locale = useLocale()
@@ -71,7 +71,7 @@ export default function AuthForm({ register }: Props) {
 					const accessToken = token.slice(7)
 					dispatch(setToken(accessToken))
 				} else {
-					// do something if the access token is not added 
+					// do something if the access token is not added
 				}
 
 				router.push('/')

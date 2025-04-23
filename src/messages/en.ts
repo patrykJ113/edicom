@@ -1,4 +1,4 @@
-import { Messages } from '@/types/messages'
+import { Messages } from '@/types/i18n/messages'
 
 const messages: Messages = {
 	topNav: {
@@ -45,8 +45,9 @@ const messages: Messages = {
 		password: 'Password',
 	},
 	errors: {
-		serverDown: 'Oops! It looks like our servers are down. We\'re working on getting things back to normal'
-	}
+		serverDown:
+			"Oops! It looks like our servers are down. We're working on getting things back to normal",
+	},
 }
 
 export default messages

@@ -1,4 +1,4 @@
-import { Messages } from '@/types/messages'
+import { Messages } from '@/types/i18n/messages'
 
 const messages: Messages = {
 	topNav: {
@@ -39,7 +39,8 @@ const messages: Messages = {
 		emailRequired: 'Email jest wymagany',
 		emailInvalid: 'Adres e-mail ma nieprawidłowy forma',
 		passwordRequired: 'Hasło jest wymagane',
-		passwordInvalid: 'Hasło musi mieć 8-16 znaków, zawierać wielką literę, małą literę, cyfrę oraz znak specjalny (np. ! @ # $)',
+		passwordInvalid:
+			'Hasło musi mieć 8-16 znaków, zawierać wielką literę, małą literę, cyfrę oraz znak specjalny (np. ! @ # $)',
 		name: 'Nazwa',
 		password: 'Hasło',
 	},

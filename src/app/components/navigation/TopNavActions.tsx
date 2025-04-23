@@ -5,12 +5,12 @@ import { RootState } from '@state/store'
 import YourAccountBtn from '@components/buttons/YourAccountBtn'
 import { Link } from '@/i18n/routing'
 import { useTranslations } from 'next-intl'
-import messagesEnum from '@enum/messages'
-import nameSpaceEnum from '@enum/name-space'
+import keys from '@i18n/messages'
+import nameSpaces from '@i18n/nameSpace'
 
 export default function TopNavActions() {
-	const { topNav } = messagesEnum
-	const t = useTranslations(nameSpaceEnum.topNav)
+	const { topNav } = keys
+	const t = useTranslations(nameSpaces.topNav)
 
 	const user = useSelector((state: RootState) => state.user)
 
@@ -26,7 +26,7 @@ export default function TopNavActions() {
 					</li>
 				</ul>
 			:	<div className='flex items-center gap-4 gap-x-6'>
-					<YourAccountBtn label={user.name}/>
+					<YourAccountBtn label={user.name} />
 					<Link href='/' className='text-lg font-medium text-brand'>
 						{t(topNav.newListing)}
 					</Link>

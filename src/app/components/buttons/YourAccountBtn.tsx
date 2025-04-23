@@ -3,18 +3,18 @@
 import React, { useState, useRef, useEffect } from 'react'
 import DropDown from '@components/DropDown'
 import { useTranslations } from 'next-intl'
-import nameSpaceEnum from '@enum/name-space'
-import messagesEnum from '@enum/messages'
+import nameSpaces from '@i18n/nameSpace'
+import keys from '@i18n/messages'
 
 type Props = {
 	label: string
 }
 
 export default function YourAccountBtn({ label }: Props) {
-	const t = useTranslations(nameSpaceEnum.yourAccountBtn)
+	const t = useTranslations(nameSpaces.yourAccountBtn)
 	const [opened, setOpened] = useState(false)
 	const btnRef = useRef<HTMLDivElement | null>(null)
-	const { yourAccountBtn } = messagesEnum
+	const { yourAccountBtn } = keys
 
 	const options = Object.values(yourAccountBtn.options).map(val => t(val))
 

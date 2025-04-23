@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
-import nameSpaceEnum from '@enum/name-space'
+import nameSpaces from '@i18n/nameSpace'
 
 import Home from '@svg/home.svg'
 import HomeFiled from '@svg/home-filed.svg'
@@ -21,7 +21,7 @@ type Icons = Record<IconKeys, { active: JSX.Element; inactive: JSX.Element }>
 
 export default function BottomNav() {
 	const [activeButton, setActiveButton] = useState<IconKeys | null>(null)
-	const t = useTranslations(nameSpaceEnum.bottomNav)
+	const t = useTranslations(nameSpaces.bottomNav)
 
 	const icons: Icons = {
 		search: {
