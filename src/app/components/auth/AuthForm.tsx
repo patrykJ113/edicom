@@ -1,22 +1,23 @@
 'use client'
-import { isValidPassword, isValidEmail } from '@/utils/validate'
-import axios, { AxiosError } from 'axios'
-import { useState } from 'react'
 import OAuthButton from '@components/buttons/OAuthButton'
 import Input from '@components/inputs/Input'
 import Button from '@components/buttons/Button'
-import { Link, useRouter } from '@/i18n/routing'
-import { useLocale } from 'next-intl'
 import Alert from '@components/Alert'
 import Spinner from '@components/Spinner'
-
-import { useTranslations } from 'next-intl'
 import keys from '@i18n/messages'
 import nameSpaces from '@i18n/nameSpace'
 import Checkbox from '@components/inputs/Checkbox'
 
+import axios, { AxiosError } from 'axios'
+import { useState } from 'react'
+import { Link, useRouter } from '@/i18n/routing'
+import { useLocale } from 'next-intl'
+import { useTranslations } from 'next-intl'
+import { setUser } from '@state/user/slice'
 import { useDispatch } from 'react-redux'
 import { setToken } from '@state/token/slice'
+import { jwtDecode } from 'jwt-decode'
+import { isValidPassword, isValidEmail } from '@/utils/validate'
 
 type Props = {
 	register?: boolean
@@ -63,12 +64,23 @@ export default function AuthForm({ register }: Props) {
 				withCredentials: true,
 			})
 			.then(res => {
-				// eslint-disable-next-line no-console
-				console.log(res)
 				const token = res.headers['authorization']
 
 				if (token && token.startsWith('Bearer ')) {
+
 					const accessToken = token.slice(7)
+
+					const decoded: { name: string; sub: string; email: string } =
+						jwtDecode(accessToken)
+					
+					dispatch(
+						setUser({
+							id: decoded.sub,
+							name: decoded.name,
+							email: decoded.email,
+						}),
+					)
+
 					dispatch(setToken(accessToken))
 				} else {
 					// do something if the access token is not added
