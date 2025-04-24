@@ -5,6 +5,10 @@ import DropDown from '@components/DropDown'
 import { useTranslations } from 'next-intl'
 import nameSpaces from '@i18n/nameSpace'
 import keys from '@i18n/messages'
+import axios from 'axios'
+import { useSelector } from 'react-redux'
+import { RootState } from '@state/store'
+import { DropDownOption } from '@typings/dropDownOption'
 
 type Props = {
 	label: string
@@ -16,7 +20,42 @@ export default function YourAccountBtn({ label }: Props) {
 	const btnRef = useRef<HTMLDivElement | null>(null)
 	const { yourAccountBtn } = keys
 
-	const options = Object.values(yourAccountBtn.options).map(val => t(val))
+	const baseApiUrl = process.env.NEXT_PUBLIC_API_URL
+	const accessToken = useSelector((state: RootState) => state.auth.accessToken)
+
+	const options = Object.values(yourAccountBtn.options).map(val => {
+		const option: DropDownOption = {
+			label: t(val),
+			cb: null,
+		}
+
+		if (t(val) === 'Log Out') {
+			option.cb = () => {
+				axios
+					.post(
+						`${baseApiUrl}/auth/logout`,
+						{},
+						{
+							withCredentials: true,
+							headers: {
+								Authorization: `Bearer ${accessToken}`,
+							},
+						},
+					)
+					.then(() => {
+						if (typeof window !== 'undefined') {
+							window.location.reload()
+						}
+					})
+					.catch(err => {
+						// eslint-disable-next-line no-console
+						console.log(err)
+					})
+			}
+		}
+
+		return option
+	})
 
 	const handleClickOutside = (event: Event) => {
 		const target = event.target as Node

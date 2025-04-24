@@ -1,5 +1,7 @@
+import { DropDownOption } from "@typings/dropDownOption"
+
 type Props = {
-	options: string[]
+	options: DropDownOption[]
 	opened: boolean
 }
 
@@ -17,9 +19,10 @@ export default function DropDown({ options, opened }: Props) {
 						className={`${!opened && 'opacity-0'} duration-300 transition-all min-w-48 p-2 text-sm
 						text-gray-400 hover:cursor-pointer hover:bg-brand-100 hover:text-brand-900
 						active:bg-brand-200`}
-						key={option}
+						onClick={option.cb ?? undefined}
+						key={option.label}
 					>
-						{option}
+						{option.label}
 					</li>
 				))}
 			</ul>

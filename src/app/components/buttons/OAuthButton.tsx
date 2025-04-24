@@ -1,6 +1,6 @@
-import Google from '@svg/logos/google.svg'
-import Fb from '@svg/logos/fb.svg'
-import Apple from '@svg/logos/apple.svg'
+import Google from '@svg/google.svg'
+import Fb from '@svg/fb.svg'
+import Apple from '@svg/apple.svg'
 
 type Props = {
 	google?: boolean
