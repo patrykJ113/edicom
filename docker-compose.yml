@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  edicom-dev-front-s:
+    image: edicom-front:dev
+    build:
+      context: ./
+    container_name: edicom-dev-front-c
+    volumes:
+      - ./:/app
+    ports:
+      - 3000:3000
+    networks:
+      - edicom-network
+    depends_on:
+      - edicom-dev-api-s
+  
+  edicom-dev-api-s:
+    image: edicom-api:dev
+    build:
+      context: ../edicom-api
+    container_name: edicom-dev-api-c
+    volumes:
+      - ../edicom-api:/app
+    ports:
+      - 4001:4000
+    networks:
+      - edicom-network
+    depends_on:
+      - edicom-dev-db-s
+
+  edicom-dev-db-s:
+    image: postgres
+    container_name: edicom-dev-db-c
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    networks:
+      - edicom-network
+networks:
+  edicom-network:
+    driver: bridge
