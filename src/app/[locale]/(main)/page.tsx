@@ -20,7 +20,6 @@ export default function Home() {
 	return (
 		<>
 			<Link href='/test'>test</Link>
-			<h1>Hello world</h1>
 			<button onClick={handleClick}>Verify</button>
 		</>
 	)

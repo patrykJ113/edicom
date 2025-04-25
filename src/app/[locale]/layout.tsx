@@ -4,6 +4,7 @@ import { Roboto } from 'next/font/google'
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import ReduxProvider from '@components/ReduxProvider'
+import Navigation from '../components/navigation/Navigation'
 
 export const metadata: Metadata = {
 	title: 'Edicom',
@@ -29,6 +30,7 @@ export default async function RootLayout({
 			<body className={`${roboto.className} bg-page`}>
 				<ReduxProvider>
 					<NextIntlClientProvider messages={messages}>
+						<Navigation />
 						{children}
 					</NextIntlClientProvider>
 				</ReduxProvider>
