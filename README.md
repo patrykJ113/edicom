@@ -91,4 +91,4 @@ exit
 
 ## Usage
 
-After running the app, navigate to http://localhost:3000 in your browser. You wull see a procide further screeen just click ok, do the same for the api when it is your firs time seting up this project ( just coppy the url and visit it in the browser )
+After running the app, navigate to https://localhost:3000 in your browser. You wull see a procide further screeen just click ok, do the same for the api when it is your firs time seting up this project ( just coppy the url and visit it in the browser )
