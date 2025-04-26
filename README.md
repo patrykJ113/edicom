@@ -1,94 +1,98 @@
 # 🚀 Edicom Front
 
-This is the front of Edicom
+This is the frontend of Edicom.
 
 ## 📦 Installation & Setup
 
-### First setup the front part of Edicom 
+### Set up the frontend
 1. Creare the folder to store the projects:
 ```bask
 mkdir edicom && cd edicom
 ```
-2. Clone the repository:
+2. Clone the frontend repository:
    ```bash
    git clone https://github.com/patrykJ113/edicom-front.git
    ```
    ```bash
    cd edicom-front
    ```
-3. install dependencies:
+3. Install dependencies:
    ```bash
    npm ci
    ```
-4. 🔐 Generate a Self-Signed SSL Certificate
+4. 🔐 Generate a self-signed SSL certificate:
    ```bash
    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout key.pem -out cert.pem -subj "/C=US/ST=State/L=City/O=Organization/CN=localhost"
    ```
-5. Create a .env file in the project based on the .env.example file
+5. Create a .env file based on .env.example:
    ```bash
    cp .env.example .env
    ```
-7. Provide the NEXT_PUBLIC_API_UR which is the url to the edicom api for development it is https://localhost:4001
-8. Provide a password for the postgres db in the POSTGRES_PASSWORD variable
+6. Set the NEXT_PUBLIC_API_URL variable in your .env file. For development, use:
+   ```bash
+   https://localhost:4001
+   ```
+9. Set the POSTGRES_PASSWORD variable with the password for your Postgres database.
 
-### Now set up the Edicom API 
+### Set up the API
 
-1. Go back to the ediccom folder
+1. Go back to the edicom folder:
    ```bash
    cd ../
    ```
-2. Install the api in the same folder as the Front app:
+2. Clone the API repository:
    ```bash
    git clone https://github.com/patrykJ113/edicom-api.git
    ```
    ```bash
    cd edicom-api
    ```
-3. install api dependencies:
+3. Install API dependencies:
    ```bash
    npm ci
    ```
-4. 🔐 Generate a Self-Signed SSL Certificate for the api 
+4. 🔐 Generate a self-signed SSL certificate for the API:
    ```bash
    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout key.pem -out cert.pem -subj "/C=US/ST=State/L=City/O=Organization/CN=localhost"
    ```
-5. Create a .env file in the project based on the .env.example file
+5. Create a .env file based on .env.example:
    ```bash
    cp .env.example .env
    ```
-7. Provide the DATABASE_URL url ( the password is the same as the one you set in the POSTGRES_PASSWORD of the fron project .env file, and the host is the name of the db service you given in the compose file )
+7. Set the DATABASE_URL in the API .env file (use the same password you set for POSTGRES_PASSWORD and the database service name from your docker-compose.yml).
 8. Use this command to generate a secret for the ACCESS_TOKEN_SECRET:
    ```bash
    openssl rand -hex 64
    ```
 9. Us the same command from the previous step to generate a secret for the REFRESH_TOKEN_SECRET
 
-### Start the app 
-1. Go the the Front app
+### Start the app
+1. Go back to the frontend project:
    ```bash
    cd ../edicom-front
    ```
-2. Before building the images and container it migt be a good idea to clear docker from the prevois constainers and images
+2. (Optional) Clear Docker containers, images, and volumes if needed:
    ```bash
    docker system prune -a --volumes
    ```
-3. Start the app with:
+3. Start the app:
    ```bash
    docker-compose up
    ```
-4. Opent the shell for the newly created api container:
+4. Open a shell inside the running API container:
 ```bash
 docker exec -it edicom-dev-api-c sh
 ```
-5. 🛠️ Create a new database if it doesn’t exist:
+5. 🛠️ Run database migrations:
    ```bash
    npx prisma migrate dev
    ```
-6. Exit the api shell
+6. Exit the API container shell:
 ```bash
 exit
 ```
 
-## Usage
+## 📖 Usage
 
-After running the app, navigate to https://localhost:3000 in your browser. You wull see a procide further screeen just click ok, do the same for the api when it is your firs time seting up this project ( just coppy the url and visit it in the browser )
+After starting the app, visit https://localhost:3000 in your browser.
+You may see a warning screen — just proceed (do the same for the API if needed, by copying its URL and opening it in the browser).
