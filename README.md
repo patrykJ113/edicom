@@ -50,19 +50,23 @@ mkdir edicom && cd edicom
    openssl rand -hex 64
    ```
 8. Us the same command from the previous step to generate a secret for the REFRESH_TOKEN_SECRET
-9. Start the app with:
+9. Before building the images and container it migt be a good idea to clear docker from the prevois constainers and images
+   ```bash
+   docker system prune -a --volumes
+   ```
+10. Start the app with:
    ```bash
    docker-compose up
    ```
-10. Opent the shell for the newly created api container:
+11. Opent the shell for the newly created api container:
 ```bash
 docker exec -it edicom-dev-api-c sh
 ```
-11. 🛠️ Create a new database if it doesn’t exist:
+12. 🛠️ Create a new database if it doesn’t exist:
    ```bash
    npx prisma migrate dev
    ```
-7. Exit the api shell
+13. Exit the api shell
 ```bash
 exit
 ```
