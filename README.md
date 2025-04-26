@@ -25,8 +25,11 @@ mkdir edicom && cd edicom
    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout key.pem -out cert.pem -subj "/C=US/ST=State/L=City/O=Organization/CN=localhost"
    ```
 5. Create a .env file in the project based on the .env.example file
-6. Provide the NEXT_PUBLIC_API_UR which is the url to the edicom api for development it is https://localhost:4001
-7. Provide a password for the postgres db in the POSTGRES_PASSWORD variable
+   ```bash
+   cp .env.example .env
+   ```
+7. Provide the NEXT_PUBLIC_API_UR which is the url to the edicom api for development it is https://localhost:4001
+8. Provide a password for the postgres db in the POSTGRES_PASSWORD variable
 
 ### Now set up the Edicom API 
 
@@ -50,29 +53,38 @@ mkdir edicom && cd edicom
    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout key.pem -out cert.pem -subj "/C=US/ST=State/L=City/O=Organization/CN=localhost"
    ```
 5. Create a .env file in the project based on the .env.example file
-6. Provide the DATABASE_URL url ( the password is the same as the one you set in the POSTGRES_PASSWORD of the fron project .env file, and the host is the name of the db service you given in the compose file )
-7. Use this command to generate a secret for the ACCESS_TOKEN_SECRET:
+   ```bash
+   cp .env.example .env
+   ```
+7. Provide the DATABASE_URL url ( the password is the same as the one you set in the POSTGRES_PASSWORD of the fron project .env file, and the host is the name of the db service you given in the compose file )
+8. Use this command to generate a secret for the ACCESS_TOKEN_SECRET:
    ```bash
    openssl rand -hex 64
    ```
-8. Us the same command from the previous step to generate a secret for the REFRESH_TOKEN_SECRET
-9. Before building the images and container it migt be a good idea to clear docker from the prevois constainers and images
+9. Us the same command from the previous step to generate a secret for the REFRESH_TOKEN_SECRET
+
+### Start the app 
+1. Go the the Front app
+   ```bash
+   cd ../edicom-front
+   ```
+2. Before building the images and container it migt be a good idea to clear docker from the prevois constainers and images
    ```bash
    docker system prune -a --volumes
    ```
-10. Start the app with:
+3. Start the app with:
    ```bash
    docker-compose up
    ```
-11. Opent the shell for the newly created api container:
+4. Opent the shell for the newly created api container:
 ```bash
 docker exec -it edicom-dev-api-c sh
 ```
-12. 🛠️ Create a new database if it doesn’t exist:
+5. 🛠️ Create a new database if it doesn’t exist:
    ```bash
    npx prisma migrate dev
    ```
-13. Exit the api shell
+6. Exit the api shell
 ```bash
 exit
 ```
