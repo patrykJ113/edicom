@@ -44,7 +44,7 @@ mkdir edicom && cd edicom
    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout key.pem -out cert.pem -subj "/C=US/ST=State/L=City/O=Organization/CN=localhost"
    ```
 5. Create a .env file in the project based on the .env.example file
-6. Provide the DATABASE_URL url ( the password is the same as the one you set in the POSTGRES_PASSWORD of the fron project .env file )
+6. Provide the DATABASE_URL url ( the password is the same as the one you set in the POSTGRES_PASSWORD of the fron project .env file, and the host is the name of the db service you given in the compose file )
 7. Use this command to generate a secret for the ACCESS_TOKEN_SECRET:
    ```bash
    openssl rand -hex 64
