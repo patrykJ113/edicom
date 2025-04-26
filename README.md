@@ -11,7 +11,10 @@ mkdir edicom && cd edicom
 ```
 2. Clone the repository:
    ```bash
-   git clone https://github.com/patrykJ113/edicom.git
+   git clone https://github.com/patrykJ113/edicom-front.git
+   ```
+   ```bash
+   cd edicom-front
    ```
 3. install dependencies:
    ```bash
@@ -34,6 +37,9 @@ mkdir edicom && cd edicom
 2. Install the api in the same folder as the Front app:
    ```bash
    git clone https://github.com/patrykJ113/edicom-api.git
+   ```
+   ```bash
+   cd edicom-api
    ```
 3. install api dependencies:
    ```bash
